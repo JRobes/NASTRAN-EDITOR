@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ASCII"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_6dIQgDXhEeWSTYCzzOdP_w" elementId="TEST-BASE-PLUGIN.application">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_70fFADXhEeWSTYCzzOdP_w" elementId="test-base-plugin.trimmedwindow" label="Nastran Editor" x="10" y="10" width="1000" height="500">
+    <children xsi:type="basic:PartSashContainer" xmi:id="_h6RFQGIAEeWlf9oUXD0xnQ" elementId="test-base-plugin.partsashcontainer.0" containerData="" horizontal="true">
+      <children xsi:type="basic:PartStack" xmi:id="_lQW3UGIAEeWlf9oUXD0xnQ" elementId="test-base-plugin.partstack.0" containerData="1000">
+        <children xsi:type="basic:Part" xmi:id="_9e7BoN4WEeWuYJxF_6pKNA" elementId="test-base-plugin.part.documents" contributionURI="bundleclass://com.femeditors.nastran/es.robes.navigators.OpenDocumentsBrowser" label="Documents" iconURI="platform:/plugin/com.femeditors.nastran/icons/documents-symbol.png"/>
+        <children xsi:type="basic:Part" xmi:id="__00GEGIDEeWlf9oUXD0xnQ" elementId="test-base-plugin.part.filebrowser" contributionURI="bundleclass://com.femeditors.nastran/es.robes.navigators.FileBrowserPart" label="FileBrowser" iconURI="">
+          <toolbar xmi:id="_z81fYNSqEeWCTooCWlbt9Q" elementId="test-base-plugin.toolbar.4"/>
+        </children>
+        <children xsi:type="basic:Part" xmi:id="_TEKW8H17EeWKXu9TBL9atA" elementId="test-base-plugin.part.pdfexplorer" contributionURI="bundleclass://com.femeditors.nastran/es.robes.navigators.PDFFileBrowserPart" label="PDF Explorer" iconURI="platform:/plugin/com.femeditors.nastran/icons/pdf_documents.png"/>
+      </children>
+      <children xsi:type="basic:PartStack" xmi:id="_DFGL4DXiEeWSTYCzzOdP_w" elementId="test-base-plugin.partstack" containerData="3000">
+        <tags>NoAutoCollapse</tags>
+        <children xsi:type="basic:Part" xmi:id="_GihVADXiEeWSTYCzzOdP_w" elementId="test-base-plugin.part" contributionURI="bundleclass://com.femeditors.nastran/es.robes.editors.nastran.NastranEditor" label="" iconURI="platform:/plugin/com.femeditors.nastran/icons/1441374738_12File_NEW16x16.png" closeable="true">
+          <toolbar xmi:id="_fa4v4Dw8EeWjCOF-RBXa_Q" elementId="test-base-plugin.toolbar.0"/>
+        </children>
+      </children>
+    </children>
+    <mainMenu xmi:id="_3uyfEFF5EeWOtMeFcdB5fQ" elementId="test-base-plugin.menu.0">
+      <children xsi:type="menu:Menu" xmi:id="_4l34EFF5EeWOtMeFcdB5fQ" elementId="test-base-plugin.menu.close" label="File">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_UM22oFGEEeWOtMeFcdB5fQ" elementId="test-base-plugin.handledmenuitem.new" label="New" iconURI="platform:/plugin/com.femeditors.nastran/icons/newNASTRANfile16x126.png" command="_n1k4wFF7EeWOtMeFcdB5fQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_gTZxsFGEEeWOtMeFcdB5fQ" elementId="test-base-plugin.handledmenuitem.open" label="Open" command="_q3t0EFF7EeWOtMeFcdB5fQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_8dxWsFF5EeWOtMeFcdB5fQ" elementId="test-base-plugin.handledmenuitem.close" label="Close" command="_A_UrwFF5EeWOtMeFcdB5fQ"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_o9itUCZZEeaRDanS8le0Sw" elementId="com.femeditors.nastran.menuseparator.0"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_YKnssFGEEeWOtMeFcdB5fQ" elementId="test-base-plugin.handledmenuitem.save" label="Save" command="_ssj10FF7EeWOtMeFcdB5fQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_r9wWACZZEeaRDanS8le0Sw" elementId="com.femeditors.nastran.handlers.saveas" label="Save As" command="_FsfGcCf5Eeaq65bA6eCRkA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_9vvJ4CZZEeaRDanS8le0Sw" elementId="com.femeditors.nastran.handlers.saveall" label="Save All" command="_V2OKICf5Eeaq65bA6eCRkA"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_DDil0CZaEeaRDanS8le0Sw" elementId="com.femeditors.nastran.menuseparator.1"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_EWQx8CZaEeaRDanS8le0Sw" elementId="com.femeditors.nastran.handlers.print" label="Print" command="_ZYiaUCf5Eeaq65bA6eCRkA"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_IOtqMCZaEeaRDanS8le0Sw" elementId="com.femeditors.nastran.menuseparator.2"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_I7yyoCZaEeaRDanS8le0Sw" elementId="com.femeditors.nastran.handlers.exit" label="Exit" command="_ehDzUCf5Eeaq65bA6eCRkA"/>
+      </children>
+      <children xsi:type="menu:MenuSeparator" xmi:id="_-UHYYD66EeaOUa6ug_SJMQ" elementId="com.femeditors.nastran.menuseparator.5"/>
+      <children xsi:type="menu:Menu" xmi:id="_owiWEFGEEeWOtMeFcdB5fQ" elementId="test-base-plugin.menu.edit" label="Edit">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_6Ueb4Cd1Eea-RL5MlSC2tg" elementId="com.femeditors.nastran.handledmenuitem.undo" label="Undo" iconURI="platform:/plugin/com.femeditors.nastran/icons/undo_edit.gif" command="_-mvdsCf2Eeaq65bA6eCRkA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_VziZECd2Eea-RL5MlSC2tg" elementId="com.femeditors.nastran.handledmenuitem.redo" label="Redo" iconURI="platform:/plugin/com.femeditors.nastran/icons/redo_edit.gif" command="__6XBsCf2Eeaq65bA6eCRkA"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_Np2fsCd3Eea-RL5MlSC2tg" elementId="com.femeditors.nastran.menuseparator.3"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_t8R6sCd2Eea-RL5MlSC2tg" elementId="com.femeditors.nastran.handledmenuitem.cut" label="Cut" iconURI="platform:/plugin/com.femeditors.nastran/icons/cut_edit.gif" command="_ruJAACf2Eeaq65bA6eCRkA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_qoTwAFGEEeWOtMeFcdB5fQ" elementId="com.femeditors.nastran.handledmenuitem.copy" label="Copy" iconURI="platform:/plugin/com.femeditors.nastran/icons/copy_edit.gif" command="_t1FkIFF7EeWOtMeFcdB5fQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_tf_HwFGEEeWOtMeFcdB5fQ" elementId="com.femeditors.nastran.handledmenuitem.paste" label="Paste" iconURI="platform:/plugin/com.femeditors.nastran/icons/paste_edit.gif" command="_ylOzoCf2Eeaq65bA6eCRkA"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_S2sYACd3Eea-RL5MlSC2tg" elementId="com.femeditors.nastran.menuseparator.4"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_T1oFcCd3Eea-RL5MlSC2tg" elementId="com.femeditors.nastran.handledmenuitem.selectall" label="Select All" command="_4sP1MCf2Eeaq65bA6eCRkA"/>
+      </children>
+      <children xsi:type="menu:MenuSeparator" xmi:id="_IWdAAD67EeaOUa6ug_SJMQ" elementId="com.femeditors.nastran.menuseparator.6"/>
+      <children xsi:type="menu:Menu" xmi:id="_9v6hACykEeal9qily_Qzvw" elementId="com.femeditors.nastran.menu.view" label="View">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_d4OhQCylEeal9qily_Qzvw" elementId="com.femeditors.nastran.handledmenuitem.whitespaces" label="White Spaces"/>
+      </children>
+      <children xsi:type="menu:MenuSeparator" xmi:id="_IrD-ED67EeaOUa6ug_SJMQ" elementId="com.femeditors.nastran.menuseparator.7"/>
+      <children xsi:type="menu:Menu" xmi:id="_C3naoCylEeal9qily_Qzvw" elementId="com.femeditors.nastran.menu.tools" label="Tools">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_iKIbUCylEeal9qily_Qzvw" elementId="com.femeditors.nastran.handledmenuitem.searchtools" label="Search Tools"/>
+      </children>
+      <children xsi:type="menu:MenuSeparator" xmi:id="_IwoakD67EeaOUa6ug_SJMQ" elementId="com.femeditors.nastran.menuseparator.8"/>
+      <children xsi:type="menu:Menu" xmi:id="_Hd96sCylEeal9qily_Qzvw" elementId="com.femeditors.nastran.menu.configuration" label="Configuration">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_SHVGECylEeal9qily_Qzvw" elementId="com.femeditors.nastran.handledmenuitem.preferences" label="Preferences"/>
+      </children>
+      <children xsi:type="menu:MenuSeparator" xmi:id="_K4qeED67EeaOUa6ug_SJMQ" elementId="com.femeditors.nastran.menuseparator.9"/>
+      <children xsi:type="menu:Menu" xmi:id="_I89BMCylEeal9qily_Qzvw" elementId="com.femeditors.nastran.menu.0" label="Help">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_nj-04CylEeal9qily_Qzvw" elementId="com.femeditors.nastran.handledmenuitem.aboutus" label="About Us"/>
+      </children>
+    </mainMenu>
+    <trimBars xmi:id="_WNyD8H4jEeWx0P2MlSfpQg" elementId="test-base-plugin.trimbar.0">
+      <children xsi:type="menu:ToolBar" xmi:id="_gnr3AH4jEeWx0P2MlSfpQg" elementId="test-base-plugin.toolbar.1">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_jOzDMH4jEeWx0P2MlSfpQg" elementId="test-base-plugin.handledtoolitem.new" label="New" iconURI="platform:/plugin/com.femeditors.nastran/icons/newNASTRANfile16x126.png" tooltip="New Nastran file" command="_n1k4wFF7EeWOtMeFcdB5fQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_XGg3EDbQEeaqZby56X5mTA" elementId="com.femeditors.nastran.handledtoolitem.open" label="Open" iconURI="platform:/plugin/com.femeditors.nastran/icons/fldr_obj.gif" command="_q3t0EFF7EeWOtMeFcdB5fQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_avsyACDcEeaAtr5zIZz84A" elementId="com.femeditors.nastran.handledtoolitem.save" label="Save" iconURI="platform:/plugin/com.femeditors.nastran/icons/save_edit.png" tooltip="Save changes" command="_ssj10FF7EeWOtMeFcdB5fQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_rmEAQCDeEeaAtr5zIZz84A" elementId="com.femeditors.nastran.handledtoolitem.saveall" label="Save All" iconURI="platform:/plugin/com.femeditors.nastran/icons/saveall_edit.png" command="_V2OKICf5Eeaq65bA6eCRkA"/>
+      </children>
+      <children xsi:type="menu:ToolBar" xmi:id="_NdD-oDbSEeaqZby56X5mTA" elementId="com.femeditors.nastran.toolbar.1">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_Qqfj8DbSEeaqZby56X5mTA" elementId="com.femeditors.nastran.handledtoolitem.print" label="Print" iconURI="platform:/plugin/com.femeditors.nastran/icons/print_edit.gif" command="_ZYiaUCf5Eeaq65bA6eCRkA"/>
+      </children>
+      <children xsi:type="menu:ToolBar" xmi:id="_LABhQCd4Eea-RL5MlSC2tg" elementId="com.femeditors.nastran.toolbar.0">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_OAzKoCd4Eea-RL5MlSC2tg" elementId="com.femeditors.nastran.handledtoolitem.cut" label="Cut" iconURI="platform:/plugin/com.femeditors.nastran/icons/cut_edit.gif" tooltip="Cut" command="_ruJAACf2Eeaq65bA6eCRkA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_Y5cvMCd4Eea-RL5MlSC2tg" elementId="com.femeditors.nastran.handledtoolitem.copy" label="Copy" iconURI="platform:/plugin/com.femeditors.nastran/icons/copy_edit.gif" tooltip="Copy" command="_t1FkIFF7EeWOtMeFcdB5fQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_c3M-MCd4Eea-RL5MlSC2tg" elementId="com.femeditors.nastran.handledtoolitem.paste" label="Paste" iconURI="platform:/plugin/com.femeditors.nastran/icons/paste_edit.gif" tooltip="Paste" command="_ylOzoCf2Eeaq65bA6eCRkA"/>
+      </children>
+      <children xsi:type="menu:ToolBar" xmi:id="_c0V0MMkBEeWaXvzEErOMLg" elementId="test-base-plugin.toolbar.2">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_gSc50MkBEeWaXvzEErOMLg" elementId="es.robes.nastraneditor.toolbarbuttons.whitespacespainterbutton" iconURI="platform:/plugin/com.femeditors.nastran/icons/pilcrow.png" tooltip="All format characters" type="Check" command="_29hjkMkBEeWaXvzEErOMLg"/>
+      </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_ofuOcN1TEeWPIJHIoBlKwg" elementId="es.robes.nastraneditor.handlers.searchtoolitem" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.SearchToolItem"/>
+      <children xsi:type="menu:ToolControl" xmi:id="_8R-Y0CyjEeal9qily_Qzvw" elementId="com.femeditors.nastran.toolcontrol.2" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.UpSearchButton"/>
+      <children xsi:type="menu:ToolControl" xmi:id="_YxiwwCykEeal9qily_Qzvw" elementId="com.femeditors.nastran.toolcontrol.0" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.DownSearchButton"/>
+    </trimBars>
+    <trimBars xmi:id="_csDM8MtIEeWesaAy_PZ1OQ" elementId="test-base-plugin.trimbar.1" accessibilityPhrase="accese" side="Bottom">
+      <children xsi:type="menu:ToolBar" xmi:id="_fWbIgMtIEeWesaAy_PZ1OQ" elementId="test-base-plugin.toolbar.3">
+        <children xsi:type="menu:DirectToolItem" xmi:id="_QZcJkC2lEeaWdJFttgEhGQ" elementId="com.femeditors.nastran.directtoolitem.0"/>
+        <children xsi:type="menu:ToolBarSeparator" xmi:id="_KCf1oC2lEeaWdJFttgEhGQ" elementId="com.femeditors.nastran.toolbarseparator.0"/>
+        <children xsi:type="menu:ToolBarSeparator" xmi:id="_m-jXgMtIEeWesaAy_PZ1OQ" elementId="test-base-plugin.toolbarseparator.0"/>
+        <children xsi:type="menu:ToolControl" xmi:id="_xbHlIC2BEeaeFbvB_zVa0g" elementId="com.femeditors.nastran.toolcontrol.1" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.StatusBarHandler"/>
+        <children xsi:type="menu:ToolBarSeparator" xmi:id="_Bb_Q0C27EeaWdJFttgEhGQ" elementId="com.femeditors.nastran.toolbarseparator.1"/>
+        <children xsi:type="menu:DirectToolItem" xmi:id="_CfhKYC27EeaWdJFttgEhGQ" elementId="com.femeditors.nastran.directtoolitem.tyty" label="tyty"/>
+        <children xsi:type="menu:ToolControl" xmi:id="_Af6FgDbvEeaqZby56X5mTA" elementId="com.femeditors.nastran.toolcontrol.3" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.StatusBarInsert"/>
+      </children>
+    </trimBars>
+  </children>
+  <handlers xmi:id="_6pjVIFF7EeWOtMeFcdB5fQ" elementId="test-base-plugin.handler.new" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.NewHandler" command="_n1k4wFF7EeWOtMeFcdB5fQ"/>
+  <handlers xmi:id="_F1KR8FF8EeWOtMeFcdB5fQ" elementId="test-base-plugin.handler.open" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.OpenHandler" command="_q3t0EFF7EeWOtMeFcdB5fQ"/>
+  <handlers xmi:id="_X8UEkFF8EeWOtMeFcdB5fQ" elementId="test-base-plugin.handler.save" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.SaveHandler" command="_ssj10FF7EeWOtMeFcdB5fQ"/>
+  <handlers xmi:id="_PwrnQFF5EeWOtMeFcdB5fQ" elementId="test-base-plugin.handler.close" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.CloseHandler" command="_A_UrwFF5EeWOtMeFcdB5fQ"/>
+  <handlers xmi:id="_2ZxaoFF-EeWOtMeFcdB5fQ" elementId="test-base-plugin.handler.copy" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.CopyHandler" command="_t1FkIFF7EeWOtMeFcdB5fQ"/>
+  <handlers xmi:id="_MHJ60FGEEeWOtMeFcdB5fQ" elementId="com.femeditors.nastran.handler.paste" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.PasteHandler" command="_ylOzoCf2Eeaq65bA6eCRkA"/>
+  <handlers xmi:id="_CDZr0MkCEeWaXvzEErOMLg" elementId="test-base-plugin.handler.allformatcharacters" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.AllFormatCharacters" command="_29hjkMkBEeWaXvzEErOMLg"/>
+  <handlers xmi:id="_dQeAECf3Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.handler.cut" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.CutHandler" command="_ruJAACf2Eeaq65bA6eCRkA"/>
+  <descriptors xmi:id="_83dP0GazEeWSqrjruHXvWw" elementId="test-base-plugin.partdescriptor.nastran.editor" label="" iconURI="platform:/plugin/com.femeditors.nastran/icons/1441374738_12File_NEW16x16.png" allowMultiple="true" contributionURI="bundleclass://com.femeditors.nastran/es.robes.editors.nastran.NastranEditor"/>
+  <commands xmi:id="_n1k4wFF7EeWOtMeFcdB5fQ" elementId="test-base-plugin.command.new" commandName="New"/>
+  <commands xmi:id="_q3t0EFF7EeWOtMeFcdB5fQ" elementId="test-base-plugin.command.open" commandName="Open"/>
+  <commands xmi:id="_ssj10FF7EeWOtMeFcdB5fQ" elementId="test-base-plugin.command.save" commandName="Save"/>
+  <commands xmi:id="_A_UrwFF5EeWOtMeFcdB5fQ" elementId="test-base-plugin.command.close" commandName="Close"/>
+  <commands xmi:id="_t1FkIFF7EeWOtMeFcdB5fQ" elementId="test-base-plugin.command.copy" commandName="Copy"/>
+  <commands xmi:id="_29hjkMkBEeWaXvzEErOMLg" elementId="test-base-plugin.command.allcharactersvisibles" commandName="AllCharactersVisibles"/>
+  <commands xmi:id="_ruJAACf2Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.cut" commandName="Cut"/>
+  <commands xmi:id="_w1c4ECf2Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.copy" commandName="Copy"/>
+  <commands xmi:id="_ylOzoCf2Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.paste" commandName="Paste"/>
+  <commands xmi:id="_4sP1MCf2Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.selectall" commandName="Select All"/>
+  <commands xmi:id="_-mvdsCf2Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.undo" commandName="Undo"/>
+  <commands xmi:id="__6XBsCf2Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.redo" commandName="Redo"/>
+  <commands xmi:id="_FsfGcCf5Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.saveas" commandName="Save As"/>
+  <commands xmi:id="_V2OKICf5Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.saveall" commandName="Save All"/>
+  <commands xmi:id="_ZYiaUCf5Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.print" commandName="Print"/>
+  <commands xmi:id="_ehDzUCf5Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.exit" commandName="Exit"/>
+  <addons xmi:id="_6dIQgTXhEeWSTYCzzOdP_w" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_6dIQgjXhEeWSTYCzzOdP_w" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_6dIQgzXhEeWSTYCzzOdP_w" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_6dIQhDXhEeWSTYCzzOdP_w" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_6dIQhTXhEeWSTYCzzOdP_w" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_6dIQhjXhEeWSTYCzzOdP_w" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_6dIQhzXhEeWSTYCzzOdP_w" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+</application:Application>

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Imageloader
+Bundle-SymbolicName: sebor.osgi.services.imageloader
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.jface
+Bundle-ActivationPolicy: lazy
+Export-Package: sebor.osgi.services.imageloader
