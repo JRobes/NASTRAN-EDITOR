@@ -77,8 +77,10 @@
         <children xsi:type="menu:HandledToolItem" xmi:id="_gSc50MkBEeWaXvzEErOMLg" elementId="es.robes.nastraneditor.toolbarbuttons.whitespacespainterbutton" iconURI="platform:/plugin/com.femeditors.nastran/icons/pilcrow.png" tooltip="All format characters" type="Check" command="_29hjkMkBEeWaXvzEErOMLg"/>
       </children>
       <children xsi:type="menu:ToolControl" xmi:id="_ofuOcN1TEeWPIJHIoBlKwg" elementId="es.robes.nastraneditor.handlers.searchtoolitem" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.SearchToolItem"/>
-      <children xsi:type="menu:ToolControl" xmi:id="_8R-Y0CyjEeal9qily_Qzvw" elementId="com.femeditors.nastran.toolcontrol.2" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.UpSearchButton"/>
-      <children xsi:type="menu:ToolControl" xmi:id="_YxiwwCykEeal9qily_Qzvw" elementId="com.femeditors.nastran.toolcontrol.0" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.DownSearchButton"/>
+      <children xsi:type="menu:ToolBar" xmi:id="_3Jhk4D8FEeaHlqwNLL-59w" elementId="com.femeditors.nastran.toolbar.2">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_3uXXUD8FEeaHlqwNLL-59w" elementId="com.femeditors.nastran.handledtoolitem.searchup" label="Search Up" iconURI="platform:/plugin/com.femeditors.nastran/icons/arrow_full_up.png" command="_L91hUD8GEeaHlqwNLL-59w"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_4gTKkD8FEeaHlqwNLL-59w" elementId="com.femeditors.nastran.handledtoolitem.searchdown" label="Search Down" iconURI="platform:/plugin/com.femeditors.nastran/icons/arrow_full_down.png" command="_PmgRID8GEeaHlqwNLL-59w"/>
+      </children>
     </trimBars>
     <trimBars xmi:id="_csDM8MtIEeWesaAy_PZ1OQ" elementId="test-base-plugin.trimbar.1" accessibilityPhrase="accese" side="Bottom">
       <children xsi:type="menu:ToolBar" xmi:id="_fWbIgMtIEeWesaAy_PZ1OQ" elementId="test-base-plugin.toolbar.3">
@@ -100,6 +102,8 @@
   <handlers xmi:id="_MHJ60FGEEeWOtMeFcdB5fQ" elementId="com.femeditors.nastran.handler.paste" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.PasteHandler" command="_ylOzoCf2Eeaq65bA6eCRkA"/>
   <handlers xmi:id="_CDZr0MkCEeWaXvzEErOMLg" elementId="test-base-plugin.handler.allformatcharacters" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.AllFormatCharacters" command="_29hjkMkBEeWaXvzEErOMLg"/>
   <handlers xmi:id="_dQeAECf3Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.handler.cut" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.CutHandler" command="_ruJAACf2Eeaq65bA6eCRkA"/>
+  <handlers xmi:id="_TkABcD8GEeaHlqwNLL-59w" elementId="com.femeditors.nastran.handler.0" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.SearchUpHandler" command="_L91hUD8GEeaHlqwNLL-59w"/>
+  <handlers xmi:id="_ZAFPoD8GEeaHlqwNLL-59w" elementId="com.femeditors.nastran.handler.1" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.SearchDownHandler" command="_PmgRID8GEeaHlqwNLL-59w"/>
   <descriptors xmi:id="_83dP0GazEeWSqrjruHXvWw" elementId="test-base-plugin.partdescriptor.nastran.editor" label="" iconURI="platform:/plugin/com.femeditors.nastran/icons/1441374738_12File_NEW16x16.png" allowMultiple="true" contributionURI="bundleclass://com.femeditors.nastran/es.robes.editors.nastran.NastranEditor"/>
   <commands xmi:id="_n1k4wFF7EeWOtMeFcdB5fQ" elementId="test-base-plugin.command.new" commandName="New"/>
   <commands xmi:id="_q3t0EFF7EeWOtMeFcdB5fQ" elementId="test-base-plugin.command.open" commandName="Open"/>
@@ -117,6 +121,8 @@
   <commands xmi:id="_V2OKICf5Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.saveall" commandName="Save All"/>
   <commands xmi:id="_ZYiaUCf5Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.print" commandName="Print"/>
   <commands xmi:id="_ehDzUCf5Eeaq65bA6eCRkA" elementId="com.femeditors.nastran.command.exit" commandName="Exit"/>
+  <commands xmi:id="_L91hUD8GEeaHlqwNLL-59w" elementId="com.femeditors.nastran.command.searchup" commandName="Search Up"/>
+  <commands xmi:id="_PmgRID8GEeaHlqwNLL-59w" elementId="com.femeditors.nastran.command.seachdown" commandName="Seach Down"/>
   <addons xmi:id="_6dIQgTXhEeWSTYCzzOdP_w" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_6dIQgjXhEeWSTYCzzOdP_w" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_6dIQgzXhEeWSTYCzzOdP_w" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
