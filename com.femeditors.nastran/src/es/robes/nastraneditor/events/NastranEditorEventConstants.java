@@ -17,5 +17,17 @@ public interface NastranEditorEventConstants {
 
 	String STATUSBAR ="statusbar";
 	
+	//the buttons up/down of the search toolbar send events to be received by the 
+	//Text Control. then, the control send message to the editor to indicate the 
+	//word to search and the direcction to search
+	String FIND_TEXT_BUTTON_ALL_EVENTS = "FIND_TEXT_BUTTON/*";
+	String FIND_TEXT_BUTTON_UP = "FIND_TEXT_BUTTON/UP";
+	String FIND_TEXT_BUTTON_DOWN = "FIND_TEXT_BUTTON/DOWN";
+	String FIND_TEXT_ALL_EVENTS = "FIND_TEXT_BUTTON/*";
+	String FIND_TEXT_UP = "FIND_TEXT_UP";
+	String FIND_TEXT_DOWN = "FIND_TEXT_DOWN";
 
+	
+	
+	
 }
