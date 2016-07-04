@@ -20,24 +20,7 @@ public class SearchUpHandler {
 	IEventBroker broker;
 	@Execute
 	public void execute(MApplication app, EModelService modelService) {
-		final MElementContainer<MUIElement> container = (MElementContainer<MUIElement>) modelService.find("test-base-plugin.partstack", app);
-		MPart selected = (MPart)container.getSelectedElement();
-		ITextEditorPart	editor = (ITextEditorPart)selected.getObject();
-		
-		if(editor instanceof ITextEditorPart){
-			
-			System.out.println("Es text editor");
-			
-			//ESTO ES PARA EL CHECKEO DE LA LINEA
-			//boolean isEmpty = str == null || str.trim().length() == 0;
-			//if (isEmpty) {
-			    // handle the validation
-			//}
-			
 
-		}
-		System.out.println(editor.toString());
-		
 		
 		
 		

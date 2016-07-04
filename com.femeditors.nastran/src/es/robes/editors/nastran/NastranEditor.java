@@ -61,7 +61,11 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.FindReplaceDocumentAdapter;
 import org.eclipse.jface.text.IPainter;
+import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.OverviewRuler;
 import org.eclipse.jface.text.source.SourceViewer;
@@ -166,6 +170,7 @@ public class NastranEditor implements ITextEditorPart {
     	
     	fileIn = new NewFileDocumentInput(file);
     	sv.setDocument(fileIn.getDocument());
+    	
     	
     	  System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
       	  
@@ -545,6 +550,18 @@ public class NastranEditor implements ITextEditorPart {
 	public void paste() {
 		st.paste();
 	}
+
+
+	@Override
+	public IRegion find(String findString, boolean searchForward) {
+				//Document document = new Document(text);
+			FindReplaceDocumentAdapter documentAdapter = new FindReplaceDocumentAdapter(sv.getDocument());
+				try {
+						return documentAdapter.find(st.getCaretOffset(), findString, searchForward, true, true, false);
+				} catch (BadLocationException argh) {
+					return null;
+				}
+	} 
 
 	
 	
