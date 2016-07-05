@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Shell;
 import org.osgi.service.prefs.Preferences;
 
+import com.femeditors.model.FEMFileDocumentInput;
 import com.femeditors.nastran.preferences.PreferenceConstants;
 
 import es.robes.nastraneditor.events.BackgroundPixels;
@@ -44,7 +45,6 @@ import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
-import org.eclipse.e4.demo.simpleide.editor.internal.NewFileDocumentInput;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.di.UIEventTopic;
@@ -112,8 +112,7 @@ public class NastranEditor implements ITextEditorPart {
 	@Inject IEventBroker broker;
 	//@Inject MPartStack partStack;
 	private File file;
-	//private NewFileDocumentInput newFileIn;
-	private NewFileDocumentInput fileIn;
+	private FEMFileDocumentInput fileIn;
 	
 	
 
@@ -168,7 +167,7 @@ public class NastranEditor implements ITextEditorPart {
     		parte.setLabel(file.getName());
     	}
     	
-    	fileIn = new NewFileDocumentInput(file);
+    	fileIn = new FEMFileDocumentInput(file);
     	sv.setDocument(fileIn.getDocument());
     	
     	

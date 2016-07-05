@@ -8,7 +8,7 @@
  * Contributors:
  *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
  ******************************************************************************/
-package org.eclipse.e4.demo.simpleide.editor;
+package com.femeditors.model;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.text.IDocument;

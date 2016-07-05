@@ -1,4 +1,4 @@
-package org.eclipse.e4.demo.simpleide.editor.internal;
+package com.femeditors.model;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -20,7 +20,6 @@ import java.nio.charset.CharsetEncoder;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.e4.demo.simpleide.editor.IDocumentInput;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.DocumentEvent;
@@ -29,13 +28,13 @@ import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
-public class NewFileDocumentInput implements IDocumentInput{
+public class FEMFileDocumentInput implements IDocumentInput{
 	private File file;
 	private IDocument document;
 
 	private static final int DEFAULT_FILE_SIZE = 15 * 1024;
 
-	public NewFileDocumentInput(File file2) {
+	public FEMFileDocumentInput(File file2) {
 		this.file = file2;
 		if (file == null){
 			System.out.println("NewFileDocumentInput.class, file = null");
