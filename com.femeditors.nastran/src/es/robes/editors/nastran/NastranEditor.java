@@ -194,7 +194,7 @@ public class NastranEditor implements ITextEditorPart {
 		Preferences defaultScopePrefs = DefaultScope.INSTANCE.getNode("com.femeditors.nastran");
 		Preferences defaultScopePreferences = DefaultScope.INSTANCE.getNode("com.femeditors.nastran/nastran");
 		Preferences sub1 = defaultScopePrefs.node("nastran");
-		System.out.println("Recogiendo valor defaultScopePreferences\t"+sub1.get("nastranTabSize", "falsoooll en default cagontó"));
+		System.out.println("Recogiendo valor defaultScopePreferences\t"+sub1.get("nastranTabSize", "falsoooll en default cagontï¿½"));
 
 		
 		//Preferences defaultNastranNode = defaultScopePreferences.node("nastran");
@@ -552,11 +552,11 @@ public class NastranEditor implements ITextEditorPart {
 
 
 	@Override
-	public IRegion find(String findString, boolean searchForward) {
+	public IRegion find(String findString, boolean searchFordward) {
 				//Document document = new Document(text);
 			FindReplaceDocumentAdapter documentAdapter = new FindReplaceDocumentAdapter(sv.getDocument());
 				try {
-						return documentAdapter.find(st.getCaretOffset(), findString, searchForward, true, true, false);
+						return documentAdapter.find(st.getCaretOffset(), findString, searchFordward, true, true, false);
 				} catch (BadLocationException argh) {
 					return null;
 				}

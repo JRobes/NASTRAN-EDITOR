@@ -20,10 +20,6 @@ public class SearchUpHandler {
 	IEventBroker broker;
 	@Execute
 	public void execute(MApplication app, EModelService modelService) {
-
-		
-		
-		
 		broker.post(NastranEditorEventConstants.FIND_TEXT_BUTTON_UP, null);
 
 	}

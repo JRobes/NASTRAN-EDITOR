@@ -37,44 +37,18 @@ public class SearchToolItem {
 		comp.setLayout(new GridLayout());
 		comp.setLocation(0, 0);
 		text = new Text(comp, SWT.SEARCH | SWT.ICON_SEARCH | SWT.CANCEL | SWT.BORDER);
-		
 		text.setLocation(0, 0);
-		
 		text.setMessage("Search");
-		//text.setText("Search");
 		GridDataFactory.fillDefaults().hint(250, SWT.DEFAULT).applyTo(text);
 	}
 	
 	@Inject
 	@Optional
 	public void buttonListener(@UIEventTopic(NastranEditorEventConstants.FIND_TEXT_BUTTON_ALL_EVENTS) Event event) {
-		//IRegion region;
 		String topic = event.getTopic();
-		//No requeridos
-		//Object data = event.getProperty(IEventBroker.DATA);
-		//File[] fileUpdated = (File[])data;
 		boolean isEmpty = text.getText() == null || text.getText().trim().length() == 0;
-		final MElementContainer<MUIElement> container = (MElementContainer<MUIElement>) modelService.find("test-base-plugin.partstack", app);
-		MPart selected = (MPart)container.getSelectedElement();
-		ITextEditorPart	editor = (ITextEditorPart)selected.getObject();
-		
-		if(editor instanceof ITextEditorPart){
-			
-			System.out.println("Es text editor");
-			
-			//ESTO ES PARA EL CHECKEO DE LA LINEA
-			//boolean isEmpty = str == null || str.trim().length() == 0;
-			//if (isEmpty) {
-			    // handle the validation
-			//}
-		
-
-		}
-		//System.out.println(editor.toString());
-		
 		
 		if (!isEmpty) {
-		    // handle the validation
 			System.out.println("hay texto......" );
 			switch(topic){
     			case NastranEditorEventConstants.FIND_TEXT_BUTTON_DOWN:
@@ -84,14 +58,10 @@ public class SearchToolItem {
     				topic = NastranEditorEventConstants.FIND_TEXT_UP;
     				break;
 			}
-			System.out.println("topic......\t" + topic);
+			//System.out.println("topic......\t" + topic);
 			broker.post(topic, text.getText());
 		}
-	
-
-
-	
-	}
+}
 	
 	
 }
