@@ -29,6 +29,7 @@ public class SearchToolItem {
 	public Text text; 
 	@Inject	EModelService modelService;
 	@Inject	MApplication app;
+	@Inject IEventBroker broker;
 	
 	@PostConstruct
 	public void createControls(Composite parent) {
@@ -47,7 +48,7 @@ public class SearchToolItem {
 	@Inject
 	@Optional
 	public void buttonListener(@UIEventTopic(NastranEditorEventConstants.FIND_TEXT_BUTTON_ALL_EVENTS) Event event) {
-		IRegion region;
+		//IRegion region;
 		String topic = event.getTopic();
 		//No requeridos
 		//Object data = event.getProperty(IEventBroker.DATA);
@@ -69,34 +70,26 @@ public class SearchToolItem {
 		
 
 		}
-		System.out.println(editor.toString());
-		
-		
+		//System.out.println(editor.toString());
 		
 		
 		if (!isEmpty) {
 		    // handle the validation
 			System.out.println("hay texto......" );
-		
-		switch(topic){
-    		case NastranEditorEventConstants.FIND_TEXT_BUTTON_DOWN:
-	        	System.out.println("FIND_TEXT_BUTTON_DOWN" );
-	        	System.out.println(text.getText() );
-	        	region = editor.find(text.getText(), true);
-	        	System.out.println(region.toString());
-	        	break;
-    		case NastranEditorEventConstants.FIND_TEXT_BUTTON_UP:
-	        	System.out.println("FIND_TEXT_BUTTON_UP");
-	        	System.out.println(text.getText() );
-	        	region = editor.find(text.getText(), false);
-	        	
-	        	System.out.println(region.toString());
+			switch(topic){
+    			case NastranEditorEventConstants.FIND_TEXT_BUTTON_DOWN:
+    				topic = NastranEditorEventConstants.FIND_TEXT_DOWN;
+    				break;
+    			case NastranEditorEventConstants.FIND_TEXT_BUTTON_UP:
+    				topic = NastranEditorEventConstants.FIND_TEXT_UP;
+    				break;
+			}
+			System.out.println("topic......\t" + topic);
+			broker.post(topic, text.getText());
+		}
+	
 
-    			break;
-    		
-		}
-		
-		}
+
 	
 	}
 	

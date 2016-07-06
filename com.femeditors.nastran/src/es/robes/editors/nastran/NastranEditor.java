@@ -1,46 +1,14 @@
  
 package es.robes.editors.nastran;
 
+import java.io.File;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CaretEvent;
-import org.eclipse.swt.custom.CaretListener;
-import org.eclipse.swt.custom.ST;
-import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.PaletteData;
-import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.ScrollBar;
-import org.eclipse.swt.widgets.Shell;
-import org.osgi.service.prefs.Preferences;
-
-import com.femeditors.model.FEMFileDocumentInput;
-import com.femeditors.nastran.preferences.PreferenceConstants;
-
-import es.robes.nastraneditor.events.BackgroundPixels;
-import es.robes.nastraneditor.events.NastranEditorEventConstants;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.TypedEvent;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -62,15 +30,47 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.FindReplaceDocumentAdapter;
 import org.eclipse.jface.text.IPainter;
 import org.eclipse.jface.text.IRegion;
+import org.eclipse.jface.text.WhitespaceCharacterPainter;
 import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.OverviewRuler;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.jface.text.source.VerticalRuler;
-import org.eclipse.jface.text.WhitespaceCharacterPainter;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CaretEvent;
+import org.eclipse.swt.custom.CaretListener;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.PaletteData;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.ScrollBar;
+import org.eclipse.swt.widgets.Shell;
+import org.osgi.service.prefs.Preferences;
+
+
+
+import com.femeditors.model.FEMFileDocumentInput;
+import com.femeditors.nastran.preferences.PreferenceConstants;
+
+import es.robes.nastraneditor.events.BackgroundPixels;
+import es.robes.nastraneditor.events.NastranEditorEventConstants;
+
 
 
 public class NastranEditor implements ITextEditorPart {
@@ -560,8 +560,55 @@ public class NastranEditor implements ITextEditorPart {
 				} catch (BadLocationException argh) {
 					return null;
 				}
-	} 
+	}
+	
+	
+	@Inject
+	@Optional
+	public void searchTextListener(@UIEventTopic(NastranEditorEventConstants.FIND_TEXT_ALL_EVENTS) org.osgi.service.event.Event events) {
+		System.out.println("RECIBE DATOS DEL CONTROL!!!!!11" );
+		final MElementContainer<MUIElement>container = parte.getParent();
+		String topic = events.getTopic();
+		System.out.println("TOPIC...." + topic);
+		if (parte.equals((MPart)container.getSelectedElement())){
+			System.out.println("ha entrado en el parte TEXT CONTROL.....");
+			switch(topic){
+    			case NastranEditorEventConstants.FIND_TEXT_DOWN:
+    				System.out.println("BUTTON DOWN.....");
+    				break;
+    			case NastranEditorEventConstants.FIND_TEXT_UP:
+    				System.out.println("BUTTON UP.....");
+    				break;
+    		
+			}
+			
+			
+			
+		}
+			
+	}
 
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
