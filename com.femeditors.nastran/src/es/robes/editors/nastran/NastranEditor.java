@@ -581,12 +581,13 @@ public class NastranEditor implements ITextEditorPart {
     				System.out.println("BUTTON DOWN.....");
     				region=find(text, true);
     				st.setCaretOffset(region.getOffset());
+    				st.setSelection(st.getCaretOffset(), st.getCaretOffset()+region.getLength());
     				break;
     			case NastranEditorEventConstants.FIND_TEXT_UP:
     				System.out.println("BUTTON UP.....");
     				region=find(text, false);
     				st.setCaretOffset(region.getOffset());
-    				st.setSelection(0, region.getLength());
+    				st.setSelection(st.getCaretOffset(), st.getCaretOffset()+region.getLength());
     				break;
     		
 			}
