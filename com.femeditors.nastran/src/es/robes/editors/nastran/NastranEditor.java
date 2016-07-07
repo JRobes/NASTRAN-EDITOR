@@ -555,7 +555,8 @@ public class NastranEditor implements ITextEditorPart {
 	public IRegion find(String findString, boolean searchFordward) {
 				//Document document = new Document(text);
 			FindReplaceDocumentAdapter documentAdapter = new FindReplaceDocumentAdapter(sv.getDocument());
-				try {
+		
+			try {
 						return documentAdapter.find(st.getCaretOffset(), findString, searchFordward, true, true, false);
 				} catch (BadLocationException argh) {
 					return null;
@@ -569,18 +570,28 @@ public class NastranEditor implements ITextEditorPart {
 		System.out.println("RECIBE DATOS DEL CONTROL!!!!!11" );
 		final MElementContainer<MUIElement>container = parte.getParent();
 		String topic = events.getTopic();
+		String text  = (String) events.getProperty(IEventBroker.DATA);
+		
 		System.out.println("TOPIC...." + topic);
+		IRegion region = null;
 		if (parte.equals((MPart)container.getSelectedElement())){
 			System.out.println("ha entrado en el parte TEXT CONTROL.....");
 			switch(topic){
     			case NastranEditorEventConstants.FIND_TEXT_DOWN:
     				System.out.println("BUTTON DOWN.....");
+    				region=find(text, true);
+    				st.setCaretOffset(region.getOffset());
     				break;
     			case NastranEditorEventConstants.FIND_TEXT_UP:
     				System.out.println("BUTTON UP.....");
+    				region=find(text, false);
+    				st.setCaretOffset(region.getOffset());
+    				st.setSelection(0, region.getLength());
     				break;
     		
 			}
+			System.out.println("REGION....\t" + region.toString() );
+
 			
 			
 			
