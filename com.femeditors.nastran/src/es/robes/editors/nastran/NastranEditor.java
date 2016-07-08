@@ -559,8 +559,11 @@ public class NastranEditor implements ITextEditorPart {
 			try {
 						return documentAdapter.find(st.getCaretOffset(), findString, searchFordward, true, true, false);
 				} catch (BadLocationException argh) {
+					System.out.println("HA Entrado en el badlocationexception" +argh);
 					return null;
 				}
+			
+			
 	}
 	
 	
@@ -571,7 +574,7 @@ public class NastranEditor implements ITextEditorPart {
 		final MElementContainer<MUIElement>container = parte.getParent();
 		String topic = events.getTopic();
 		String text  = (String) events.getProperty(IEventBroker.DATA);
-		
+		int initialCaretOffset = st.getCaretOffset();
 		System.out.println("TOPIC...." + topic);
 		IRegion region = null;
 		if (parte.equals((MPart)container.getSelectedElement())){
@@ -587,7 +590,8 @@ public class NastranEditor implements ITextEditorPart {
     				System.out.println("BUTTON UP.....");
     				region=find(text, false);
     				st.setCaretOffset(region.getOffset());
-    				st.setSelection(st.getCaretOffset(), st.getCaretOffset()+region.getLength());
+    				
+    				//st.setSelection(st.getCaretOffset(), st.getCaretOffset()+region.getLength());
     				break;
     		
 			}
