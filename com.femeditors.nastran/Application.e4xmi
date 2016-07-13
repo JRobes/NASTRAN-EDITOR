@@ -60,6 +60,7 @@
     </mainMenu>
     <trimBars xmi:id="_WNyD8H4jEeWx0P2MlSfpQg" elementId="test-base-plugin.trimbar.0">
       <children xsi:type="menu:ToolBar" xmi:id="_gnr3AH4jEeWx0P2MlSfpQg" elementId="test-base-plugin.toolbar.1">
+        <tags>Draggable</tags>
         <children xsi:type="menu:HandledToolItem" xmi:id="_jOzDMH4jEeWx0P2MlSfpQg" elementId="test-base-plugin.handledtoolitem.new" label="New" iconURI="platform:/plugin/com.femeditors.nastran/icons/newNASTRANfile16x126.png" tooltip="New Nastran file" command="_n1k4wFF7EeWOtMeFcdB5fQ"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_XGg3EDbQEeaqZby56X5mTA" elementId="com.femeditors.nastran.handledtoolitem.open" label="Open" iconURI="platform:/plugin/com.femeditors.nastran/icons/fldr_obj.gif" command="_q3t0EFF7EeWOtMeFcdB5fQ"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_avsyACDcEeaAtr5zIZz84A" elementId="com.femeditors.nastran.handledtoolitem.save" label="Save" iconURI="platform:/plugin/com.femeditors.nastran/icons/save_edit.png" tooltip="Save changes" command="_ssj10FF7EeWOtMeFcdB5fQ"/>

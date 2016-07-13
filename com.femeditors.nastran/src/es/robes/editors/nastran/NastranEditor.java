@@ -552,12 +552,19 @@ public class NastranEditor implements ITextEditorPart {
 
 
 	@Override
-	public IRegion find(String findString, boolean searchFordward) {
+	public IRegion find(String findString, boolean searchFordward, int initialCaretOffset) {
 				//Document document = new Document(text);
 			FindReplaceDocumentAdapter documentAdapter = new FindReplaceDocumentAdapter(sv.getDocument());
-		
-			try {
+			
+				try {
+						if(documentAdapter.find(st.getCaretOffset(), findString, searchFordward, true, true, false) == null){
+					
+						}
 						return documentAdapter.find(st.getCaretOffset(), findString, searchFordward, true, true, false);
+				
+				
+				
+				
 				} catch (BadLocationException argh) {
 					System.out.println("HA Entrado en el badlocationexception" +argh);
 					return null;
@@ -582,13 +589,14 @@ public class NastranEditor implements ITextEditorPart {
 			switch(topic){
     			case NastranEditorEventConstants.FIND_TEXT_DOWN:
     				System.out.println("BUTTON DOWN.....");
-    				region=find(text, true);
+    				region=find(text, true, initialCaretOffset);
     				st.setCaretOffset(region.getOffset());
     				st.setSelection(st.getCaretOffset(), st.getCaretOffset()+region.getLength());
+    				//st.setSelection(st.getCaretOffset(), st.getCaretOffset());
     				break;
     			case NastranEditorEventConstants.FIND_TEXT_UP:
     				System.out.println("BUTTON UP.....");
-    				region=find(text, false);
+    				region=find(text, false, initialCaretOffset);
     				st.setCaretOffset(region.getOffset());
     				
     				//st.setSelection(st.getCaretOffset(), st.getCaretOffset()+region.getLength());

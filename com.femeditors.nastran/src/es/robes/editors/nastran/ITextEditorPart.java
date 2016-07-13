@@ -8,7 +8,7 @@ public interface ITextEditorPart {
 	public void copy();
 	public void paste();
 
-	public IRegion find(String findString, boolean searchForward); 
+	public IRegion find(String findString, boolean searchForward, int intialCaretOffset); 
 
 
 }
