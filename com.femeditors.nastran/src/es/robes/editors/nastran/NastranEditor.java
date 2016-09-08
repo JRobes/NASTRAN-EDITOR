@@ -67,11 +67,10 @@ import org.osgi.service.prefs.Preferences;
 
 import com.femeditors.model.FEMFileDocumentInput;
 import com.femeditors.nastran.preferences.PreferenceConstants;
+import com.femeditors.nastran.sourceviewerconf.NastranSourceViewerConf;
 
 import es.robes.nastraneditor.events.BackgroundPixels;
 import es.robes.nastraneditor.events.NastranEditorEventConstants;
-
-
 
 public class NastranEditor implements ITextEditorPart {
 	/** Indicates the status of the WhiteSpaceCharacterPainter button on the toolbar for this part. */
@@ -150,7 +149,7 @@ public class NastranEditor implements ITextEditorPart {
 	   // sv = new SourceViewer(parent, ruler, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
 	    st = sv.getTextWidget();
 	    
-	    
+	    sv.configure(new NastranSourceViewerConf());
 		System.out.println("NUMERO DE PIXELS EN EL LADO IZDO:\t" +st.getLeftMargin());
 		st.setLeftMargin(0);
 
