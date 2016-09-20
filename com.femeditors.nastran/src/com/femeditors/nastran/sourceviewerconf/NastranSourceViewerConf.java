@@ -9,7 +9,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.di.extensions.Preference;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
@@ -30,15 +36,33 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
+import org.osgi.service.prefs.Preferences;
 
 public class NastranSourceViewerConf extends SourceViewerConfiguration {
 	public ITokenScanner tokenScanner;
 	public IRule patternRule;
 	public IRule endOfLineRule;
 	public IRule multiLineaRegla;
+	public String miCadena;
+	public Preferences defaultPrefs;
+	//@Inject @Preference(value="nastranTabSize") String tabSize;
 	
 	public NastranSourceViewerConf(){
+	   	defaultPrefs = DefaultScope.INSTANCE.getNode("com.femeditors.nastran");
+
 		tokenScanner = createTokenScanner();
+	}
+	
+	
+	@PostConstruct
+	public void jander(){
+	   	Preferences defaultPrefs = DefaultScope.INSTANCE.getNode("com.femeditors.nastran");
+		 System.out.println("ÑÑÑÑÑÑÑÑÑÑTestSourceViewerConfffffff ñÑÑÑÑÑÑÑÑÑÑÑ");
+		 System.out.println("+++++++++++++++++++++++++++++++++++++++++");
+		 System.out.println("+++++++++++++++++++++++++++++++++++++++++");
+		 System.out.println(defaultPrefs.get("nastranTabSize", "ERROR READING NASTRAN PREFS..."));
+		 System.out.println("+++++++++++++++++++++++++++++++++++++++++");
+		 System.out.println("+++++++++++++++++++++++++++++++++++++++++");
 	}
 	
 	//@Override
@@ -51,6 +75,7 @@ public class NastranSourceViewerConf extends SourceViewerConfiguration {
 		 reconciler.setRepairer(dflt, IDocument.DEFAULT_CONTENT_TYPE);
 		 return reconciler;
 	}
+	
 	private ITokenScanner createTokenScanner() {
 		 RuleBasedScanner scanner= new RuleBasedScanner();
 		 scanner.setRules(createRules());
@@ -69,11 +94,12 @@ public class NastranSourceViewerConf extends SourceViewerConfiguration {
 		 IToken tokenB= new Token(new TextAttribute(green));
 		 IToken tokenC= new Token(new TextAttribute(magenta, null, SWT.BOLD));
 
+		 
+		 
 		 URL url = Platform.getInstanceLocation().getURL();
 		 String instancePath = url.getPath();
 		 String osAppropriatePath = System.getProperty("os.name").contains("indow") ? instancePath.substring(1) : instancePath;		 
 		 Path path = Paths.get(osAppropriatePath, "syntax", "BULK-DATA-ENTRIES.syn");
-		 System.out.println("TestSourceViewerConfffffff ñÑÑÑÑÑÑÑÑÑÑÑ");
 		 IRule[] iRules; 
 		 patternRule= new PatternRule(">", "<", tokenA, 'R', false);
 		 endOfLineRule = new EndOfLineRule("$", tokenB);
@@ -81,8 +107,7 @@ public class NastranSourceViewerConf extends SourceViewerConfiguration {
 		 WordRule keywords = new WordRule(new NASTRANWordDetector());
 
 		 if (Files.exists(path)){
-			 System.out.println("En TestSourceViewerConf......");
-				 
+			System.out.println("En TestSourceViewerConf......");
 			BufferedReader linea;
 			try {
 				linea = new BufferedReader(new FileReader(path.toString()));
@@ -98,9 +123,6 @@ public class NastranSourceViewerConf extends SourceViewerConfiguration {
 				            String keyword = words[i];
 				            keywords.addWord(keyword, tokenA);
 				        }
-				        
-					
-										
 					
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -109,19 +131,20 @@ public class NastranSourceViewerConf extends SourceViewerConfiguration {
 				e.printStackTrace();
 			}
 			
-			
-			
 		 }
 		 else{
-		    	
+		    	String syntaxColoring = defaultPrefs.get("BULK-DATA-ENTRIES", "ERROR READING NASTRAN DEFAULT PREFS..."); 
+		    	String[] words2 = syntaxColoring.trim().split("\\s++");
+				System.out.println("El numero de palabras es DENTRO DEL CONFIG INI:\t" + words2.length);
+				iRules = new IRule[words2.length+1];
+				//linea.close();
+				iRules[0] = endOfLineRule;
+				
+			        for (int i = 0; i < words2.length; i++) {
+			            String keyword = words2[i];
+			            keywords.addWord(keyword, tokenA);
+			        }
 		 }
-		 
-		
-		// begginOfLineRule = new BegginOfLineRule();
-		
-		 
-		 
-		 //System.out.println("EL IRULESTIENE LONGITUD :" +iRules.length);
 		 
 		 return new IRule[] {endOfLineRule, keywords, multiLineaRegla};
 	}
@@ -142,7 +165,15 @@ public class NastranSourceViewerConf extends SourceViewerConfiguration {
             return Character.isLetter(c) || Character.isDigit(c);
         }
     }
-	private void jander(){
-			 System.out.println("jander....");
-		}
+	
+	@Inject
+	@Optional
+	private int getRules(@Preference(nodePath ="com.femeditors.nastran", value = "nastranTabSize") String valor){
+		
+		System.out.println(valor);
+		
+		
+		return Integer.parseInt(valor);
+		
+	}
 }

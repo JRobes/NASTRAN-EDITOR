@@ -61,6 +61,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Shell;
+import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
 
@@ -118,7 +119,6 @@ public class NastranEditor implements ITextEditorPart {
 	@Inject
 	public NastranEditor(Composite parent) {
 	}
-	
 		
 	@PostConstruct
 	public void postConstruct(Composite parent, EPartService partService, MApplication application) {
@@ -133,10 +133,6 @@ public class NastranEditor implements ITextEditorPart {
 		imageData = new ImageData(MAX_PIXELS_SIZE,1,1,paletteData);
 		List<MStackElement> stackElement = partStack.getChildren();
 		System.out.println("Number of NastranEditor parts: " +stackElement.size());
-		//for(MStackElement part : stackElement ){
-			//System.out.println("stack element\t" +part.toString());
-		//}
-		
 		
 		parte.getTags().add(EPartService.REMOVE_ON_HIDE_TAG);
 		
@@ -149,7 +145,11 @@ public class NastranEditor implements ITextEditorPart {
 	   // sv = new SourceViewer(parent, ruler, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
 	    st = sv.getTextWidget();
 	    
+	    //NastranSourceViewerConf nsvconf = new NastranSourceViewerConf();
+	   // sv.configure(nsvconf);
 	    sv.configure(new NastranSourceViewerConf());
+	    //nsvconf.jander();
+	    
 		System.out.println("NUMERO DE PIXELS EN EL LADO IZDO:\t" +st.getLeftMargin());
 		st.setLeftMargin(0);
 
@@ -170,59 +170,40 @@ public class NastranEditor implements ITextEditorPart {
     	sv.setDocument(fileIn.getDocument());
     	
     	
-    	  System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
       	  
-    	  File f = new File(parte.getLabel());
+    	File f = new File(parte.getLabel());
     	  
-    	  System.out.println(f.getAbsolutePath());
-    	  System.out.println(f.getName());
+    	System.out.println(f.getAbsolutePath());
+    	System.out.println(f.getName());
 
-      	  System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+      	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
       	fileBroker[0] =  new File(parte.getLabel()); 
 	    broker.post(NastranEditorEventConstants.FILE_NEW, fileBroker );
-
+	   
 	    sv.addPainter(whitespaceCharacterPainter);
 	    whitespaceCharacterPainter.deactivate(true);
 	    final ScrollBar hBar = st.getHorizontalBar();
 	    
-	    
-		Preferences instanceScopePreferences = InstanceScope.INSTANCE.getNode("com.femeditors.nastran");
-		Preferences nastranNode = instanceScopePreferences.node("nastran");
-		
-		Preferences defaultScopePrefs = DefaultScope.INSTANCE.getNode("com.femeditors.nastran");
-		Preferences defaultScopePreferences = DefaultScope.INSTANCE.getNode("com.femeditors.nastran/nastran");
-		Preferences sub1 = defaultScopePrefs.node("nastran");
-		System.out.println("Recogiendo valor defaultScopePreferences\t"+sub1.get("nastranTabSize", "falsoooll en default cagont�"));
+	   	Preferences instancePrefs = InstanceScope.INSTANCE.getNode("com.femeditors.nastran");
+	   	Preferences defaultPrefs = DefaultScope.INSTANCE.getNode("com.femeditors.nastran");
+	   	String nastranTabSize = instancePrefs.get("nastranTabSize", "No instance file yet");
+	    if (nastranTabSize.equals("No instance file yet")){
+	    	nastranTabSize = defaultPrefs.get(nastranTabSize, "ERROR READING NASTRAN PREFS...");
+	    	System.out.println("nO HAY INSTANCE FILE YET");
+	    	if(nastranTabSize.equals("ERROR READING NASTRAN PREFS...")){
+	    		nastranTabSize="8";
+	    	}
+	    	instancePrefs.put("nastranTabSize", nastranTabSize);
+	    	try {
+				instancePrefs.flush();
+			} catch (BackingStoreException e1) {
+				e1.printStackTrace();
+			}
+	    }
+	    st.setTabs(Integer.parseInt(nastranTabSize));
 
-		
-		//Preferences defaultNastranNode = defaultScopePreferences.node("nastran");
-		System.out.println("Recogiendo valor defaultScopePreferences\t"+defaultScopePreferences.get("nastranTabSize", "falsoooll en default"));
-		System.out.println("Recogiendo valor defaultScopePreferences\t"+defaultScopePrefs.get("nastranTabSize", "falsoooll en default"));
-		System.out.println("Recogiendo valor defaultScopePreferences\t"+defaultScopePreferences.get("otravariable", "falsoooll en default"));
-		System.out.println("Recogiendo valor defaultScopePreferences\t"+defaultScopePrefs.get("otravariable", "falsoooll en default"));
-		
-		//Preferences sub2 = instanceScopePreferences.node("");
-		System.out.println("Recogiendo valor pseudoContinuousScrolling\t"+nastranNode.get("nastranTabSize", "falsoooll"));
-		//System.out.println("Recogiendo valor pseudoContinuousScrolling\t"+sub2.get(PreferenceConstants.NASTRAN_TABS_SIZE, "falsoooll----2"));
-		System.out.println("Default-Scope");
-		//System.out.println("Recogiendo valor pseudoContinuousScrolling\t"+sub2.get(PreferenceConstants.PDF_RENDERER, "falsoooll----2"));
-		Preferences defaultNode = defaultScopePreferences.node("");
-		System.out.println("Recogiendo valor pseudoContinuousScrolling en Default\t"+defaultNode.get(PreferenceConstants.NASTRAN_TABS_SIZE, "Este no puede ser nunca falso"));
-		System.out.println("Recogiendo valor pseudoContinuousScrolling en Default\t"+defaultNode.get(PreferenceConstants.OTRA_VARIABLE, "Ni este puede ser falso"));
-		
-		
-		System.out.println("Recogiendo valor pseudoContinuousScrolling en Default sin node\t"+defaultScopePreferences.get(PreferenceConstants.NASTRAN_TABS_SIZE, "Este no puede ser nunca falso"));
-		
-
-	    /*
-        ImageData leftMarginImageData = new ImageData(st.getLeftMargin(),1,1,paletteData);
-     
-        for (int i = 0; i < st.getLeftMargin(); i++ ){
-        	leftMarginImageData.setPixel(i, 0, 0);
-        }
-        */
-        //leftMarginImage = new Image(display,leftMarginImageData);
         whiteBackgroundImageData.setPixel(0,0,0);
         whiteImage= new Image(display, whiteBackgroundImageData);
         

@@ -16,8 +16,8 @@
                value="/TEST-BASE-PLUGIN/icons/1441374738_12File_NEW16x16.png,/TEST-BASE-PLUGIN/icons/1441374738_12.File_NEW.png">
          </property>
          <property
-               name="preferenceCustomization"
-               value="plugin_customization.ini">
+               name="preferenceCustomization "
+               value="prefs/plugin_customization.ini">
          </property>
       </product>
    </extension>
