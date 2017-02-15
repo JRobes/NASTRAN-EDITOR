@@ -14,6 +14,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.text.IDocument;
 
 public interface IDocumentInput {
-	public IDocument getDocument();
+	//public IDocument getDocument();
 	public IStatus save();
 }

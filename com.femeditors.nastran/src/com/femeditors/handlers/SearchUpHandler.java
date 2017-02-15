@@ -12,7 +12,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 
-import es.robes.editors.nastran.ITextEditorPart;
+import es.robes.editors.nastran.ISaveTextEditorPart;
 import es.robes.nastraneditor.events.NastranEditorEventConstants;
 
 public class SearchUpHandler {

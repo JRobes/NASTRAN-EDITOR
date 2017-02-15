@@ -2,6 +2,8 @@
 package es.robes.editors.nastran;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -50,6 +52,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.PaletteData;
@@ -67,19 +70,20 @@ import org.osgi.service.prefs.Preferences;
 
 
 import com.femeditors.model.FEMFileDocumentInput;
+import com.femeditors.model.TextEditorPart;
 import com.femeditors.nastran.preferences.PreferenceConstants;
 import com.femeditors.nastran.sourceviewerconf.NastranSourceViewerConf;
 
 import es.robes.nastraneditor.events.BackgroundPixels;
 import es.robes.nastraneditor.events.NastranEditorEventConstants;
 
-public class NastranEditor implements ITextEditorPart {
+public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart {
 	/** Indicates the status of the WhiteSpaceCharacterPainter button on the toolbar for this part. */
 	private boolean wsToolBarButtonStatus = false;
 	/** The SourceViewer control to create the Nastran editor. */
 	public SourceViewer sv = null;
 	/** StyledText wrapped by SourceViewer control. */
-	public StyledText st = null;
+	//public StyledText st = null;
 	/** Object used to paint non-printable characters: tab, space & RC. */
 	private WhitespaceCharacterPainter whitespaceCharacterPainter;
 	/** hPixel stores the value of the horizontal pixel of the StyledText 
@@ -111,7 +115,7 @@ public class NastranEditor implements ITextEditorPart {
 	@Inject MPart parte;
 	@Inject IEventBroker broker;
 	//@Inject MPartStack partStack;
-	private File file;
+	//private File file;
 	private FEMFileDocumentInput fileIn;
 	
 	
@@ -137,6 +141,12 @@ public class NastranEditor implements ITextEditorPart {
 		parte.getTags().add(EPartService.REMOVE_ON_HIDE_TAG);
 		
 	    file = (File) parte.getTransientData().get("File Name");
+	    //
+	    //Path miPath = (Path) parte.getTransientData().get("File Name");
+	    //System.out.println("EL PATH.....");
+	    //System.out.println(miPath.toString());
+	    //
+	    
 	    if (file!=null)
 	    	System.out.println("convertido transient data to file\t" + file.getAbsolutePath());
 	    IVerticalRuler  verticalRuler = new VerticalRuler(10);
@@ -150,12 +160,28 @@ public class NastranEditor implements ITextEditorPart {
 	    sv.configure(new NastranSourceViewerConf());
 	    //nsvconf.jander();
 	    
-		System.out.println("NUMERO DE PIXELS EN EL LADO IZDO:\t" +st.getLeftMargin());
+		System.out.println("NUMERO DE PIXELS EN EL LADO IZDO:\t" + st.getLeftMargin());
 		st.setLeftMargin(0);
 
 	    Font fuente = new Font(parent.getDisplay(),new FontData("Monospac821 BT",10,SWT.NORMAL));
-	    st.setFont(fuente);
+	    //Font fuente = new Font(parent.getDisplay(),new FontData("Consolas",10,SWT.NORMAL));
+	    
 
+	    
+	    
+    	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+	    System.out.println("FONT-DATA....\t"+ Arrays.toString(fuente.getFontData()));
+	    ///FontData fd = 	fuente.getFontData()[1];
+	    //parent..getDisplay()
+	 
+	    
+	    
+	    st.setFont(fuente);
+	    GC gc = new GC(display);
+	    System.out.println("average char width.......\t"+gc.getFontMetrics().getAverageCharWidth());
+	    
+	    
+	    
     	whitespaceCharacterPainter = new  WhitespaceCharacterPainter(sv);
 
     	if(file == null){
@@ -167,7 +193,7 @@ public class NastranEditor implements ITextEditorPart {
     	}
     	
     	fileIn = new FEMFileDocumentInput(file);
-    	sv.setDocument(fileIn.getDocument());
+    	sv.setDocument(this.getDocument());
     	
     	
     	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
@@ -461,8 +487,10 @@ public class NastranEditor implements ITextEditorPart {
 				File newFile = new File(temp);
 				
 				fileIn.setFile(newFile);
+				file = newFile;
 				System.out.println("guardando los datos...111111");
-				fileIn.save();
+				//fileIn.save();
+				savePart();
 				System.out.println("guardando los datos...222222");
 				parte.setLabel(newFile.getName());
 				dirty.setDirty(false);
@@ -478,7 +506,8 @@ public class NastranEditor implements ITextEditorPart {
 			}
 		}
 		else{
-			fileIn.save();
+			//fileIn.save();
+			savePart();
 			dirty.setDirty(false);
 
 
@@ -511,7 +540,7 @@ public class NastranEditor implements ITextEditorPart {
 
 	}
 
-
+/*
 	@Override
 	public void cut() {
 		st.cut();
@@ -529,7 +558,7 @@ public class NastranEditor implements ITextEditorPart {
 	public void paste() {
 		st.paste();
 	}
-
+*/
 
 	@Override
 	public IRegion find(String findString, boolean searchFordward, int initialCaretOffset) {

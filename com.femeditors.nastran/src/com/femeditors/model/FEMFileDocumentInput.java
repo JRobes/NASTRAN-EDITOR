@@ -106,7 +106,8 @@ public class FEMFileDocumentInput implements IDocumentInput{
 			e.printStackTrace();
 		}
 	}
-
+	
+/*
 	public IDocument getDocument() {
 		if (file == null) {
 			//System.out.println("Dentro de NewFileDoc.... en getDocument cuando es null");
@@ -133,15 +134,6 @@ public class FEMFileDocumentInput implements IDocumentInput{
 
 				try {
 					String encoding = null;
-					
-					/*try {
-						encoding = file.getCharset();
-					} catch (Exception e) {
-						// TODO: handle exception
-						e.printStackTrace();
-					}
-					*/
-
 					if (encoding == null)
 						encoding = "ASCII";
 
@@ -174,9 +166,11 @@ public class FEMFileDocumentInput implements IDocumentInput{
 
 		return document;
 	}
+	
+	*/
 
 	/**
-	 * @param file the file to set
+	 * @param 
 	 */
 	public void setFile(File file) {
 		this.file = file;

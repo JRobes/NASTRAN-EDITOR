@@ -12,7 +12,9 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 
-import es.robes.editors.nastran.ITextEditorPart;
+import com.femeditors.model.IDocumentInput_new;
+
+import es.robes.editors.nastran.ISaveTextEditorPart;
 import es.robes.editors.nastran.NastranEditor;
 
 
@@ -26,18 +28,18 @@ public class CopyHandler {
 		Clipboard clpbrd = Toolkit.getDefaultToolkit ().getSystemClipboard ();
         StringSelection stringSelection = new StringSelection (editor.st.getSelectionText());
         clpbrd.setContents (stringSelection, null);
-        System.out.println("Copy called");
+        //System.out.println("Copy called");
 	}	
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_PART) MPart activePart){
 		//System.out.println(activePart.toString());
 		//activePart.getObject()
-		if (activePart.getObject() instanceof ITextEditorPart){
-			System.out.println("Copy called true");
+		if (activePart.getObject() instanceof IDocumentInput_new){
+			//System.out.println("Copy called true");
 			return true;
 
 		}
-		System.out.println("Copy called false");
+		//System.out.println("Copy called false");
 
 		return false;
 	}
