@@ -69,7 +69,6 @@ import org.osgi.service.prefs.Preferences;
 
 
 
-import com.femeditors.model.FEMFileDocumentInput;
 import com.femeditors.model.TextEditorPart;
 import com.femeditors.nastran.preferences.PreferenceConstants;
 import com.femeditors.nastran.sourceviewerconf.NastranSourceViewerConf;
@@ -116,7 +115,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	@Inject IEventBroker broker;
 	//@Inject MPartStack partStack;
 	//private File file;
-	private FEMFileDocumentInput fileIn;
+	//private FEMFileDocumentInput fileIn;
 	
 	
 
@@ -192,7 +191,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
     		parte.setLabel(file.getName());
     	}
     	
-    	fileIn = new FEMFileDocumentInput(file);
+    	//fileIn = new FEMFileDocumentInput(file);
     	sv.setDocument(this.getDocument());
     	
     	
@@ -463,7 +462,8 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 		System.out.println("guardando los datos...");
 		System.out.println("guardando los datos..."+ file.getAbsolutePath());
 		if (!isNewFile){
-			fileIn.save();
+			//fileIn.save();
+			savePart();
 			dirty.setDirty(false);
 		}
 		else{
@@ -474,6 +474,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 		}
 	
 	}
+	@Override
 	public void save(){
 		System.out.println("guardando los datos...");
 		//System.out.println("guardando los datos..."+ file.getAbsolutePath());
@@ -486,7 +487,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 				System.out.println("guardando los datos...\t" + temp);
 				File newFile = new File(temp);
 				
-				fileIn.setFile(newFile);
+				//fileIn.setFile(newFile);
 				file = newFile;
 				System.out.println("guardando los datos...111111");
 				//fileIn.save();
