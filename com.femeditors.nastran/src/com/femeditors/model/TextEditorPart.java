@@ -21,7 +21,7 @@ import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.custom.StyledText;
 
-public class TextEditorPart implements IDocumentInput_new {
+public class TextEditorPart implements IDocumentInput {
 	public StyledText st = null;
 	public File file;
 	private IDocument document;
