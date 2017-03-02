@@ -2,7 +2,6 @@
 package es.robes.editors.nastran;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,7 +42,6 @@ import org.eclipse.jface.text.source.VerticalRuler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CaretEvent;
 import org.eclipse.swt.custom.CaretListener;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.ModifyEvent;
@@ -70,7 +68,6 @@ import org.osgi.service.prefs.Preferences;
 
 
 import com.femeditors.model.TextEditorPart;
-import com.femeditors.nastran.preferences.PreferenceConstants;
 import com.femeditors.nastran.sourceviewerconf.NastranSourceViewerConf;
 
 import es.robes.nastraneditor.events.BackgroundPixels;
@@ -161,7 +158,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	    
 		System.out.println("NUMERO DE PIXELS EN EL LADO IZDO:\t" + st.getLeftMargin());
 		st.setLeftMargin(0);
-
+				
 	    Font fuente = new Font(parent.getDisplay(),new FontData("Monospac821 BT",10,SWT.NORMAL));
 	    //Font fuente = new Font(parent.getDisplay(),new FontData("Consolas",10,SWT.NORMAL));
 	    
