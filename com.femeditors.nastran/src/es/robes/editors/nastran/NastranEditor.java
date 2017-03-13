@@ -2,6 +2,7 @@
 package es.robes.editors.nastran;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
@@ -135,7 +136,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 		System.out.println("Number of NastranEditor parts: " +stackElement.size());
 		
 		parte.getTags().add(EPartService.REMOVE_ON_HIDE_TAG);
-		
+		//filePath = Paths.;
 	    file = (File) parte.getTransientData().get("File Name");
 	    //
 	    //Path miPath = (Path) parte.getTransientData().get("File Name");

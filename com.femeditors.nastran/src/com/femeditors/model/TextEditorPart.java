@@ -15,6 +15,7 @@ import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.nio.file.Path;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.text.Document;
@@ -24,11 +25,19 @@ import org.eclipse.swt.custom.StyledText;
 public class TextEditorPart implements IDocumentInput {
 	public StyledText st = null;
 	public File file;
+	public Path documentPath;
 	private IDocument document;
 	private static final int DEFAULT_FILE_SIZE = 15 * 1024;
 
 	
 	public IDocument getDocument() {
+		if(documentPath.getFileName()!= null){
+			
+		}
+		else{
+			
+		}
+		
 		if (file == null) {
 			//System.out.println("Dentro de NewFileDoc.... en getDocument cuando es null");
 			Document document = new Document();
