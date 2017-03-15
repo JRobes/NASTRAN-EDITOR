@@ -1,6 +1,9 @@
  
 package com.femeditors.handlers;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -20,13 +23,15 @@ public class OpenHandler {
 	//System.out.println("DENTRO DEL EXECUTE DE OPEN HANDLER");
 	FileDialog dlg = new FileDialog(shell);
     String temp = dlg.open();
-    File file = new File(temp);
+    
+
 	//System.out.println("EN EL OPEN HANDLER, el archivo para abrir es:\t"+file);
 
     if (temp != null) {
+       // Path filePath = Paths.get(temp);
         MPart part = partService.createPart("test-base-plugin.partdescriptor.nastran.editor");
         part.setCloseable(true);
-        part.getTransientData().put("File Name", file);
+        part.getTransientData().put("File Name", temp);
         partService.showPart(part, PartState.ACTIVATE);
     }
 	}

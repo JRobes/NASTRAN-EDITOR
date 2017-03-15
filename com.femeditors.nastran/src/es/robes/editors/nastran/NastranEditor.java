@@ -2,7 +2,9 @@
 package es.robes.editors.nastran;
 
 import java.io.File;
+import java.net.URI;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -73,6 +75,7 @@ import com.femeditors.nastran.sourceviewerconf.NastranSourceViewerConf;
 
 import es.robes.nastraneditor.events.BackgroundPixels;
 import es.robes.nastraneditor.events.NastranEditorEventConstants;
+import sebor.osgi.services.newdocumentnumber.INewDocumentNumberProvider;
 
 public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart {
 	/** Indicates the status of the WhiteSpaceCharacterPainter button on the toolbar for this part. */
@@ -97,10 +100,10 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	ImageData imageData;
 	
 	public final int MAX_PIXELS_SIZE = 5000;
+	//private File[] fileBroker = {null,null};
+	private Path[] pathBroker = {null,null};
 	
-	private boolean isNewFile = true;
-	
-	private File[] fileBroker = {null,null};
+	@Inject INewDocumentNumberProvider numNuevosDocs;
    
 
 	Display display;
@@ -111,11 +114,6 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	@Inject MDirtyable dirty;
 	@Inject MPart parte;
 	@Inject IEventBroker broker;
-	//@Inject MPartStack partStack;
-	//private File file;
-	//private FEMFileDocumentInput fileIn;
-	
-	
 
 	@Inject
 	public NastranEditor(Composite parent) {
@@ -137,15 +135,19 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 		
 		parte.getTags().add(EPartService.REMOVE_ON_HIDE_TAG);
 		//filePath = Paths.;
-	    file = (File) parte.getTransientData().get("File Name");
-	    //
-	    //Path miPath = (Path) parte.getTransientData().get("File Name");
-	    //System.out.println("EL PATH.....");
-	    //System.out.println(miPath.toString());
-	    //
+		String sss = (String)parte.getTransientData().get("File Name");
+		String tempDir = System.getProperty("java.io.tmpdir");
+		if(sss==null){
+			sss = "Document"+numNuevosDocs.getNewDocumentNumber()+".bdf";
+			isNewFile = true;
+		}
+		documentPath = Paths.get(sss);		
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	    System.out.println("+"+documentPath.getParent());
+	    System.out.println("+"+documentPath.getFileName());
+	    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	    parte.setLabel(documentPath.getFileName().toString());
 	    
-	    if (file!=null)
-	    	System.out.println("convertido transient data to file\t" + file.getAbsolutePath());
 	    IVerticalRuler  verticalRuler = new VerticalRuler(10);
 	    OverviewRuler overviewRuler = new OverviewRuler(null, 20, null);
 	    sv = new SourceViewer(parent, verticalRuler, overviewRuler, true, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
@@ -153,7 +155,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	    st = sv.getTextWidget();
 	    
 	    //NastranSourceViewerConf nsvconf = new NastranSourceViewerConf();
-	   // sv.configure(nsvconf);
+	    // sv.configure(nsvconf);
 	    sv.configure(new NastranSourceViewerConf());
 	    //nsvconf.jander();
 	    
@@ -162,48 +164,24 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 				
 	    Font fuente = new Font(parent.getDisplay(),new FontData("Monospac821 BT",10,SWT.NORMAL));
 	    //Font fuente = new Font(parent.getDisplay(),new FontData("Consolas",10,SWT.NORMAL));
-	    
-
-	    
-	    
-    	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-	    System.out.println("FONT-DATA....\t"+ Arrays.toString(fuente.getFontData()));
+	    //System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+	    //System.out.println("FONT-DATA....\t"+ Arrays.toString(fuente.getFontData()));
 	    ///FontData fd = 	fuente.getFontData()[1];
 	    //parent..getDisplay()
-	 
-	    
-	    
 	    st.setFont(fuente);
 	    GC gc = new GC(display);
-	    System.out.println("average char width.......\t"+gc.getFontMetrics().getAverageCharWidth());
-	    
-	    
-	    
-    	whitespaceCharacterPainter = new  WhitespaceCharacterPainter(sv);
-
-    	if(file == null){
-    		parte.setLabel(("Document"+stackElement.size()+".bdf"));
-    	}
-    	else{
-    		isNewFile = false;
-    		parte.setLabel(file.getName());
-    	}
-    	
-    	//fileIn = new FEMFileDocumentInput(file);
-    	sv.setDocument(this.getDocument());
-    	
-    	
+	   // System.out.println("average char width.......\t"+gc.getFontMetrics().getAverageCharWidth());
+	    whitespaceCharacterPainter = new  WhitespaceCharacterPainter(sv);
+    	//IMPORTAR EL DOCUMENTO!!!!!!!
+	    sv.setDocument(this.getDocument());
     	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-      	  
     	File f = new File(parte.getLabel());
-    	  
     	System.out.println(f.getAbsolutePath());
     	System.out.println(f.getName());
-
       	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
-      	fileBroker[0] =  new File(parte.getLabel()); 
-	    broker.post(NastranEditorEventConstants.FILE_NEW, fileBroker );
+      	pathBroker[0] = documentPath; 
+	    broker.post(NastranEditorEventConstants.FILE_NEW, pathBroker );
 	   
 	    sv.addPainter(whitespaceCharacterPainter);
 	    whitespaceCharacterPainter.deactivate(true);
@@ -229,24 +207,19 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 
         whiteBackgroundImageData.setPixel(0,0,0);
         whiteImage= new Image(display, whiteBackgroundImageData);
-        
-        
-			if(backgroundImage != null){
+ 		if(backgroundImage != null){
 				backgroundImage.dispose();
-			}
-			//imageData.setPixels(0, 0, st.getLeftMargin(), BackgroundPixels.leftMargen, 0);
-			//imageData.setPixels(st.getLeftMargin()-1, 0, 3000, BackgroundPixels.stripes640Bit,  0);
-			imageData.setPixels(0, 0, 3000, BackgroundPixels.stripes640Bit,  0);
-	    	backgroundImage = new Image(display, imageData);
-			st.setBackgroundImage(backgroundImage);
-			
+		}
+		//imageData.setPixels(0, 0, st.getLeftMargin(), BackgroundPixels.leftMargen, 0);
+		//imageData.setPixels(st.getLeftMargin()-1, 0, 3000, BackgroundPixels.stripes640Bit,  0);
+		imageData.setPixels(0, 0, 3000, BackgroundPixels.stripes640Bit,  0);
+    	backgroundImage = new Image(display, imageData);
+		st.setBackgroundImage(backgroundImage);
 		st.addMouseListener(new MouseAdapter(){
 			public void mouseDown(MouseEvent e){
 				System.out.println("mouse presed");
 				paintBackground(imageData, display);
 			}
-			
-			
 		});	
         st.addKeyListener(new KeyAdapter(){
         	public void keyPressed(KeyEvent e){
@@ -264,19 +237,10 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
         		}
         		if(e.keyCode == SWT.INSERT){
         			System.out.println("INSERTS PULSADA");
-        			//System.out.println(e.stateMask);
-        			
-        			
-        		}
-        		
+         		}
         	}
         });
-        
-       // st.setKeyBinding(SWT.INSERT, SWT.NULL);
-       // st.invokeAction(ST.TOGGLE_OVERWRITE);
-        
-        st.addCaretListener(new CaretListener (){
-
+       st.addCaretListener(new CaretListener (){
 			@Override
 			public void caretMoved(CaretEvent event) {
 				@SuppressWarnings("unused")
@@ -285,10 +249,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
     			System.out.println("Caret Moved...   ");
                 System.out.println("Horizontal Pixel."+  st.getHorizontalPixel());
 				paintBackground(imageData, display);
-
-				
 			}
-        	
         });
   
         st.addListener(SWT.Modify, new Listener() {
@@ -385,7 +346,9 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	 * 
 	 * @param activePart
 	 */
+
 	
+	/*
 	@Inject
 	@Optional
 	public void updateWSButtonByPart(@Named(IServiceConstants.ACTIVE_PART) MPart activePart) {
@@ -425,6 +388,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 		}
 
 	} 
+	*/
 	
     private  void paintBackground(ImageData imageData, Display display) {
     	if(hPixel != st.getHorizontalPixel()){
@@ -458,7 +422,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	@Persist
 	public void guardarDatos(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell){
 		System.out.println("guardando los datos...");
-		System.out.println("guardando los datos..."+ file.getAbsolutePath());
+		System.out.println("guardando los datos..."+ documentPath.toString());
 		if (!isNewFile){
 			//fileIn.save();
 			savePart();
@@ -483,21 +447,22 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 			if(temp!= null){
 				
 				System.out.println("guardando los datos...\t" + temp);
-				File newFile = new File(temp);
+				Path pathToSave = Paths.get(temp);
+				//File newFile = new File(temp);
 				
 				//fileIn.setFile(newFile);
-				file = newFile;
+				//file = newFile;
 				System.out.println("guardando los datos...111111");
 				//fileIn.save();
 				savePart();
 				System.out.println("guardando los datos...222222");
-				parte.setLabel(newFile.getName());
+				parte.setLabel(pathToSave.getFileName().toString());
 				dirty.setDirty(false);
 				isNewFile = false;
 				System.out.println("guardando los datos...333333");
-				fileBroker[1] = newFile;
-			    broker.post(NastranEditorEventConstants.FILE_RENAME, fileBroker);
-			    broker.post(NastranEditorEventConstants.STATUSBAR, fileBroker[1].getAbsolutePath());
+				pathBroker[1] = pathToSave;
+			    broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
+			    broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
 			}
 	
 			else{
@@ -535,7 +500,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	    
 	    //if(file != null)
 	    
-	    broker.post(NastranEditorEventConstants.FILE_CLOSE, fileBroker );
+	    broker.post(NastranEditorEventConstants.FILE_CLOSE, pathBroker );
 
 	}
 

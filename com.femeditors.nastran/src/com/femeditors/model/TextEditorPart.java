@@ -9,12 +9,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.eclipse.core.runtime.IStatus;
@@ -24,84 +26,59 @@ import org.eclipse.swt.custom.StyledText;
 
 public class TextEditorPart implements IDocumentInput {
 	public StyledText st = null;
-	public File file;
-	public Path documentPath;
+	//public File file;
+	public static Path documentPath = null;
 	private IDocument document;
+	public boolean isNewFile = false;
+
 	private static final int DEFAULT_FILE_SIZE = 15 * 1024;
 
 	
 	public IDocument getDocument() {
-		if(documentPath.getFileName()!= null){
-			
-		}
-		else{
-			
-		}
-		
-		if (file == null) {
-			//System.out.println("Dentro de NewFileDoc.... en getDocument cuando es null");
-			Document document = new Document();
-			document.set("");
-			this.document= document;
-		}
-		else{
-			if (document == null) {
-				Document document = new Document();
-				Reader in = null;
-
-				InputStream contentStream = null;
-				try {
-					contentStream = new FileInputStream(file);
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
+		Document document = new Document();
+		Reader in = null;
+		InputStream contentStream = null;
+		if(!isNewFile){
+			try {
+				 contentStream = Files.newInputStream(documentPath);
 				if (contentStream == null) {
 					return null;
 				}
 
+				String encoding = null;
+				if (encoding == null)
+					encoding = "ASCII";
+				in = new BufferedReader(new InputStreamReader(contentStream,
+						encoding), DEFAULT_FILE_SIZE);
+				StringBuffer buffer = new StringBuffer(DEFAULT_FILE_SIZE);
+				char[] readBuffer = new char[2048];
+				int n = in.read(readBuffer);
+				while (n > 0) {
+					buffer.append(readBuffer, 0, n);
+					n = in.read(readBuffer);
+				}
+
+				document.set(buffer.toString());
+				this.document = document;		
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
 				try {
-					String encoding = null;
-					
-					/*try {
-						encoding = file.getCharset();
-					} catch (Exception e) {
-						// TODO: handle exception
-						e.printStackTrace();
-					}
-					*/
-
-					if (encoding == null)
-						encoding = "ASCII";
-
-					in = new BufferedReader(new InputStreamReader(contentStream,
-							encoding), DEFAULT_FILE_SIZE);
-					StringBuffer buffer = new StringBuffer(DEFAULT_FILE_SIZE);
-					char[] readBuffer = new char[2048];
-					int n = in.read(readBuffer);
-					while (n > 0) {
-						buffer.append(readBuffer, 0, n);
-						n = in.read(readBuffer);
-					}
-
-					document.set(buffer.toString());
-					this.document = document;
-
+					if (in != null)
+						in.close();
+					else
+						contentStream.close();
 				} catch (IOException x) {
-					x.printStackTrace();
-				} finally {
-					try {
-						if (in != null)
-							in.close();
-						else
-							contentStream.close();
-					} catch (IOException x) {
-					}
 				}
 			}
+			
 		}
-
+		else{
+			document.set("aaaaa");
+			this.document= document;
+		}
 		return document;
 	}
 	
@@ -111,7 +88,7 @@ public class TextEditorPart implements IDocumentInput {
 	public IStatus savePart() {
 		System.err.println("Starting save");
 		
-		if (file == null){
+		if (documentPath == null){
 			System.err.println("NUNCA DEBE ENTRAR AQUI....");
 		}
 		else{
@@ -138,7 +115,7 @@ public class TextEditorPart implements IDocumentInput {
 		
 		byte[] bytes;
 		ByteBuffer byteBuffer;
-		FileOutputStream fooStream = null;
+		OutputStream fooStream = null;
 		try {
 			byteBuffer = encoder.encode(CharBuffer.wrap(document.get()));
 			if (byteBuffer.hasArray())
@@ -151,12 +128,14 @@ public class TextEditorPart implements IDocumentInput {
 			ByteArrayInputStream stream= new ByteArrayInputStream(bytes, 0, byteBuffer.limit());
 			
 			try {
-			fooStream = new FileOutputStream(file, false);	// true to append
-	         												// false to overwrite.
-			} catch (FileNotFoundException e1) {
+				fooStream = Files.newOutputStream(documentPath);
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} 
+				e.printStackTrace();
+			}
+			//.newOutputStream(documentPath, false);
+					//new FileOutputStream(file, false);	// true to append
+	         												// false to overwrite. 
 			try {
 				fooStream.write(bytes);
 				fooStream.close();

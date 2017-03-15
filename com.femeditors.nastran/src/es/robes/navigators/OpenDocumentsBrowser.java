@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -16,7 +17,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Focus;
@@ -58,9 +58,9 @@ public class OpenDocumentsBrowser {
 	private Image pdfFileIcon;
 	private Image nastranFileIcon;
 	//static File[] fileArray = null;
-	private String[] fileNames = new String[3];
-	private File[] openFiles = new File[6];
-	private List<File> listOfFiles = new ArrayList<File>();
+	//private String[] fileNames = new String[3];
+	//private File[] openFiles = new File[6];
+	private List<Path> listOfFiles = new ArrayList<Path>();
 
 	@Inject ESelectionService service;
 	@Inject	EPartService partService;
@@ -76,21 +76,6 @@ public class OpenDocumentsBrowser {
 	
 	@PostConstruct
 	public void createControls(Composite parent, IImageLoader imageLoader) {
-		fileNames[0] = "un archivo";
-		fileNames[1] = "otro archivo";
-		fileNames[2] = "y un tercero";
-		//listOfFiles.add(arg0);
-		File mifile = new File("jander");
-		System.out.println("MIFILE. GEEEET NAAME");
-		System.out.println(mifile.getName());
-		System.out.println("");
-		File mifile2 = new File("clander");
-		File mifile3 = new File("agromenauer");
-		
-		//listOfFiles.add(mifile);
-		//listOfFiles.add(mifile2);
-		//listOfFiles.add(mifile3);
-		//listOfFiles.toArray();
 
 		System.out.println("FileBrowser createControls...");
 		//File[] files = new File[2];
@@ -125,7 +110,7 @@ public class OpenDocumentsBrowser {
 		@Override
 		public Object[] getElements(Object inputElement) {
 			
-			return ((List<File>)inputElement).toArray();
+			return ((List<Path>)inputElement).toArray();
 		}
 
 		@Override
@@ -152,62 +137,23 @@ public class OpenDocumentsBrowser {
 
 	}
 	
-	/*
-	 * Este content provider funciona
-	class ViewContentProvider implements ITreeContentProvider {
-		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
-		}
-
-		@Override
-		public void dispose() {
-		}
-
-		@Override
-		public Object[] getElements(Object inputElement) {
-			return (String[]) inputElement;
-		}
-
-		@Override
-		public Object[] getChildren(Object parentElement) {
-			String cadena = (String) parentElement;
-			//INTENTO QUE DEVUELVA NULL
-			return null; 
-					
-		}
-
-		@Override
-		public Object getParent(Object element) {
-			String cadena = (String) element;
-			//INTENTO QUE DEVUELVA NULL
-
-			return null;
-		}
-
-		@Override
-		public boolean hasChildren(Object element) {
-	
-			return false;
-		}
-
-	}
-*/
-	
-	
 	class ViewLabelProvider extends StyledCellLabelProvider {
 		@Override
 		public void update(ViewerCell cell) {
 			Object element = cell.getElement();
 			StyledString text = new StyledString();
-			File file = (File) element;
-			text.append(getFileName(file));
+			Path filePath = (Path) element;
+			text.append(getFileName(filePath));
 			cell.setImage(nastranFileIcon);
 			cell.setText(text.toString());
 			cell.setStyleRanges(text.getStyleRanges());
 			super.update(cell);
 		}
-		private String getFileName(File file) {
-			String name = file.getName();
-			return name.isEmpty() ? file.getPath() : name;
+		private String getFileName(Path filePath) {
+			String name = filePath.getFileName().toString();
+			
+			//return name.isEmpty() ? filePath.getPath() : name;
+			return name;
 		}
 	}
 
@@ -231,7 +177,7 @@ public class OpenDocumentsBrowser {
 		String topic = event.getTopic();
 
 		Object data = event.getProperty(IEventBroker.DATA);
-		File[] fileUpdated = (File[])data;
+		Path[] fileUpdated = (Path[])data;
 		
 		switch(topic){
     		case NastranEditorEventConstants.FILE_NEW:
