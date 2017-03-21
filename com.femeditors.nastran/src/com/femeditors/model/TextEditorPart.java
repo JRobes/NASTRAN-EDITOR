@@ -1,11 +1,6 @@
 package com.femeditors.model;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -125,7 +120,7 @@ public class TextEditorPart implements IDocumentInput {
 				byteBuffer.get(bytes);
 			}
 			
-			ByteArrayInputStream stream= new ByteArrayInputStream(bytes, 0, byteBuffer.limit());
+			//ByteArrayInputStream stream= new ByteArrayInputStream(bytes, 0, byteBuffer.limit());
 			
 			try {
 				fooStream = Files.newOutputStream(documentPath);

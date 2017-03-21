@@ -38,6 +38,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.osgi.service.prefs.Preferences;
 
+@SuppressWarnings("restriction")
 public class NastranSourceViewerConf extends SourceViewerConfiguration {
 	public ITokenScanner tokenScanner;
 	public IRule patternRule;
@@ -87,14 +88,12 @@ public class NastranSourceViewerConf extends SourceViewerConfiguration {
 			 System.out.println("display != null");
 		 }
 		 Color blue = display.getSystemColor(SWT.COLOR_BLUE);
-		 Color green = display.getSystemColor(SWT.COLOR_GREEN);
+		 Color green = display.getSystemColor(SWT.COLOR_DARK_GREEN);
 		 Color magenta = display.getSystemColor(SWT.COLOR_DARK_MAGENTA);
 
 		 IToken tokenA= new Token(new TextAttribute(blue));
 		 IToken tokenB= new Token(new TextAttribute(green));
 		 IToken tokenC= new Token(new TextAttribute(magenta, null, SWT.BOLD));
-
-		 
 		 
 		 URL url = Platform.getInstanceLocation().getURL();
 		 String instancePath = url.getPath();
