@@ -84,14 +84,8 @@
       </children>
     </trimBars>
     <trimBars xmi:id="_csDM8MtIEeWesaAy_PZ1OQ" elementId="test-base-plugin.trimbar.1" accessibilityPhrase="accese" side="Bottom">
-      <children xsi:type="menu:ToolBar" xmi:id="_fWbIgMtIEeWesaAy_PZ1OQ" elementId="test-base-plugin.toolbar.3">
-        <children xsi:type="menu:DirectToolItem" xmi:id="_QZcJkC2lEeaWdJFttgEhGQ" elementId="com.femeditors.nastran.directtoolitem.0"/>
-        <children xsi:type="menu:ToolBarSeparator" xmi:id="_KCf1oC2lEeaWdJFttgEhGQ" elementId="com.femeditors.nastran.toolbarseparator.0"/>
-        <children xsi:type="menu:ToolBarSeparator" xmi:id="_m-jXgMtIEeWesaAy_PZ1OQ" elementId="test-base-plugin.toolbarseparator.0"/>
-        <children xsi:type="menu:ToolControl" xmi:id="_xbHlIC2BEeaeFbvB_zVa0g" elementId="com.femeditors.nastran.toolcontrol.1" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.StatusBarHandler"/>
-        <children xsi:type="menu:ToolBarSeparator" xmi:id="_Bb_Q0C27EeaWdJFttgEhGQ" elementId="com.femeditors.nastran.toolbarseparator.1"/>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_CfhKYC27EeaWdJFttgEhGQ" elementId="com.femeditors.nastran.directtoolitem.tyty" label="tyty"/>
-        <children xsi:type="menu:ToolControl" xmi:id="_Af6FgDbvEeaqZby56X5mTA" elementId="com.femeditors.nastran.toolcontrol.3" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.StatusBarInsert"/>
+      <children xsi:type="menu:ToolBar" xmi:id="_9H2IsA_jEeewe7-s-q2XEA" elementId="com.femeditors.nastran.toolbar.3">
+        <children xsi:type="menu:DirectToolItem" xmi:id="_-DZK8A_jEeewe7-s-q2XEA" elementId="com.femeditors.nastran.directtoolitem.tredertffaaaaaaaaaaa" label="tredertffAAAAAAAAAAa" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.BottomToolbarControl"/>
       </children>
     </trimBars>
   </children>

@@ -239,8 +239,8 @@ public class OpenDocumentsBrowser {
 
 		if (parte.equals(activePart)) {
 			//broker.post(NastranEditorEventConstants.STATUSBAR, "Natran Editor");
-			MWindow window = (MWindow) modelService.find("test-base-plugin.trimmedwindow", app);
-			window.setLabel(NastranEditorEventConstants.APPLICATION_TITLE);
+			//MWindow window = (MWindow) modelService.find("test-base-plugin.trimmedwindow", app);
+			//window.setLabel(NastranEditorEventConstants.APPLICATION_TITLE);
 			} 
 		
 

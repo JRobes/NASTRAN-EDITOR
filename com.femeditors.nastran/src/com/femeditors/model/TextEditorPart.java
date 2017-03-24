@@ -71,7 +71,7 @@ public class TextEditorPart implements IDocumentInput {
 			
 		}
 		else{
-			document.set("aaaaa");
+			document.set("");
 			this.document= document;
 		}
 		return document;

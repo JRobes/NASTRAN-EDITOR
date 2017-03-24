@@ -461,8 +461,10 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 				isNewFile = false;
 				System.out.println("guardando los datos...333333");
 				pathBroker[1] = pathToSave;
+			    parte.getTransientData().put("File Name", pathToSave.toString());
 			    broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
 			    broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
+
 			}
 	
 			else{
@@ -586,7 +588,17 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	}
 
 	
-	
+	@Inject
+	@Optional
+	public void partIsActivePart(@Named(IServiceConstants.ACTIVE_PART) MPart activePart) {
+		if (parte.equals(activePart)) {
+			
+			broker.post(NastranEditorEventConstants.STATUSBAR, (String)parte.getTransientData().get("File Path"));
+		}
+		
+		
+	}
+
 }
 
 

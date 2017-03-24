@@ -16,12 +16,18 @@
 
    <windowImages i16="/TEST-BASE-PLUGIN/icons/1441374738_12File_NEW16x16.png" i128="/TEST-BASE-PLUGIN/icons/1441374738_12.File_NEW.png"/>
 
-
    <launcher>
       <solaris/>
-      <win useIco="true">
+      <win useIco="false">
          <ico path="/TEST-BASE-PLUGIN/icons/Alestis.ico"/>
-         <bmp/>
+         <bmp
+            winSmallHigh="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_16x16_24bits.bmp"
+            winSmallLow="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_16x16_8bits.bmp"
+            winMediumHigh="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_32X32_24bits.bmp"
+            winMediumLow="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_32X32_8bits.bmp"
+            winLargeHigh="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_48x48-24bits.bmp"
+            winLargeLow="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_48x48-8bits.bmp"
+            winExtraLargeHigh="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_256x256.bmp"/>
       </win>
    </launcher>
 
