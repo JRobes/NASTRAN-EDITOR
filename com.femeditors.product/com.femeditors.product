@@ -17,6 +17,7 @@
 
    <windowImages i16="/com.femeditors.nastran/icons/NASTRAN-EDITOR_16x16_24bits.png" i32="/com.femeditors.nastran/icons/NASTRAN-EDITOR_32X32_24bits.png" i48="/com.femeditors.nastran/icons/NASTRAN-EDITOR_48x48-24bits.png" i64="/com.femeditors.nastran/icons/NASTRAN-EDITOR_64x64.png" i128="/com.femeditors.nastran/icons/NASTRAN-EDITOR_128x128.png" i256="/com.femeditors.nastran/icons/NASTRAN-EDITOR_256x256.png"/>
 
+
    <launcher name="NastranEditor">
       <solaris/>
       <win useIco="true">
@@ -36,6 +37,7 @@
    <vm>
       <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7</windows>
    </vm>
+
 
    <plugins>
    </plugins>
