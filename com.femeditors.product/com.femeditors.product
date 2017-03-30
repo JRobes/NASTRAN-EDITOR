@@ -3,6 +3,7 @@
 
 <product name="mi-producto" uid="com.femeditors.product" id="com.femeditors.nastran.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" useFeatures="true" includeLaunchers="true">
 
+
    <configIni use="default">
    </configIni>
 
@@ -14,24 +15,26 @@
       </vmArgsMac>
    </launcherArgs>
 
-   <windowImages i16="/TEST-BASE-PLUGIN/icons/1441374738_12File_NEW16x16.png" i128="/TEST-BASE-PLUGIN/icons/1441374738_12.File_NEW.png"/>
+   <windowImages i16="/com.femeditors.nastran/icons/NASTRAN-EDITOR_16x16_24bits.png" i32="/com.femeditors.nastran/icons/NASTRAN-EDITOR_32X32_24bits.png" i48="/com.femeditors.nastran/icons/NASTRAN-EDITOR_48x48-24bits.png" i64="/com.femeditors.nastran/icons/NASTRAN-EDITOR_64x64.png" i128="/com.femeditors.nastran/icons/NASTRAN-EDITOR_128x128.png" i256="/com.femeditors.nastran/icons/NASTRAN-EDITOR_256x256.png"/>
 
-   <launcher>
+   <launcher name="NastranEditor">
       <solaris/>
-      <win useIco="false">
-         <ico path="/TEST-BASE-PLUGIN/icons/Alestis.ico"/>
+      <win useIco="true">
+         <ico path="/com.femeditors.nastran/icons/JANDER.ico"/>
          <bmp
-            winSmallHigh="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_16x16_24bits.bmp"
-            winSmallLow="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_16x16_8bits.bmp"
-            winMediumHigh="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_32X32_24bits.bmp"
-            winMediumLow="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_32X32_8bits.bmp"
-            winLargeHigh="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_48x48-24bits.bmp"
-            winLargeLow="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_48x48-8bits.bmp"
-            winExtraLargeHigh="/com.femeditors.product/launcher-icons/NASTRAN-EDITOR_256x256.bmp"/>
+            winSmallHigh="/com.femeditors.nastran/icons/NASTRAN-EDITOR_16x16_24bits.bmp"
+            winSmallLow="/com.femeditors.nastran/icons/NASTRAN-EDITOR_16x16_8bits.bmp"
+            winMediumHigh="/com.femeditors.nastran/icons/NASTRAN-EDITOR_32X32_24bits.bmp"
+            winMediumLow="/com.femeditors.nastran/icons/NASTRAN-EDITOR_32X32_8bits.bmp"
+            winLargeHigh="/com.femeditors.nastran/icons/NASTRAN-EDITOR_48x48-24bits.bmp"
+            winLargeLow="/com.femeditors.nastran/icons/NASTRAN-EDITOR_48x48-8bits.bmp"
+            winExtraLargeHigh="/com.femeditors.nastran/icons/NASTRAN-EDITOR_256x256.bmp"/>
       </win>
    </launcher>
 
+
    <vm>
+      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7</windows>
    </vm>
 
    <plugins>
@@ -47,7 +50,11 @@
 
    <configurations>
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="3" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
    </configurations>
 
    <preferencesInfo>

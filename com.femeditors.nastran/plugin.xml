@@ -13,7 +13,7 @@
          </property>
          <property
                name="windowImages"
-               value="/TEST-BASE-PLUGIN/icons/1441374738_12File_NEW16x16.png,/TEST-BASE-PLUGIN/icons/1441374738_12.File_NEW.png">
+               value="icons/NASTRAN-EDITOR_16x16_24bits.png,icons/NASTRAN-EDITOR_32X32_24bits.png,icons/NASTRAN-EDITOR_48x48-24bits.png,icons/NASTRAN-EDITOR_64x64.png,icons/NASTRAN-EDITOR_128x128.png,icons/NASTRAN-EDITOR_256x256.png">
          </property>
          <property
                name="preferenceCustomization "
