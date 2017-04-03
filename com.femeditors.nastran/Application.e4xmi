@@ -84,6 +84,7 @@
       </children>
     </trimBars>
     <trimBars xmi:id="_csDM8MtIEeWesaAy_PZ1OQ" elementId="test-base-plugin.trimbar.1" accessibilityPhrase="accese" side="Bottom">
+      <children xsi:type="menu:ToolControl" xmi:id="_4ZRwABhjEeee_PioBI09kQ" elementId="com.femeditors.nastran.toolcontrol.0" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.BottomToolbarControl"/>
       <children xsi:type="menu:ToolBar" xmi:id="_9H2IsA_jEeewe7-s-q2XEA" elementId="com.femeditors.nastran.toolbar.3">
         <children xsi:type="menu:DirectToolItem" xmi:id="_-DZK8A_jEeewe7-s-q2XEA" elementId="com.femeditors.nastran.directtoolitem.tredertffaaaaaaaaaaa" label="tredertffAAAAAAAAAAa" contributionURI="bundleclass://com.femeditors.nastran/com.femeditors.handlers.BottomToolbarControl"/>
       </children>
