@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_6dIQgDXhEeWSTYCzzOdP_w" elementId="TEST-BASE-PLUGIN.application">
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_70fFADXhEeWSTYCzzOdP_w" elementId="test-base-plugin.trimmedwindow" label="Nastran Editor" x="10" y="10" width="1000" height="500">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_70fFADXhEeWSTYCzzOdP_w" elementId="test-base-plugin.trimmedwindow" label="Nastran Editor" iconURI="platform:/plugin/com.femeditors.nastran/icons/NASTRAN-EDITOR_256x256.png" x="10" y="10" width="1000" height="500">
     <children xsi:type="basic:PartSashContainer" xmi:id="_h6RFQGIAEeWlf9oUXD0xnQ" elementId="test-base-plugin.partsashcontainer.0" containerData="" horizontal="true">
       <children xsi:type="basic:PartStack" xmi:id="_lQW3UGIAEeWlf9oUXD0xnQ" elementId="test-base-plugin.partstack.0" containerData="1000">
         <children xsi:type="basic:Part" xmi:id="_9e7BoN4WEeWuYJxF_6pKNA" elementId="test-base-plugin.part.documents" contributionURI="bundleclass://com.femeditors.nastran/es.robes.navigators.OpenDocumentsBrowser" label="Documents" iconURI="platform:/plugin/com.femeditors.nastran/icons/documents-symbol.png"/>

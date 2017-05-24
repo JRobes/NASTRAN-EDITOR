@@ -19,6 +19,10 @@
                name="preferenceCustomization "
                value="prefs/plugin_customization.ini">
          </property>
+         <property
+               name="lifeCycleURI"
+               value="bundleclass://com.femeditors.nastran/es.robes.editors.nastran.lifecycle.LifeCycleManager">
+         </property>
       </product>
    </extension>
 
