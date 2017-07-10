@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
@@ -15,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.custom.StyledText;
@@ -71,7 +73,11 @@ public class TextEditorPart implements IDocumentInput {
 			
 		}
 		else{
-			document.set("");
+			URL url = Platform.getInstanceLocation().getURL();
+			
+			
+			//System.out.println("Absolute path\n"+url.getPath());
+			document.set("Absolute path\n"+url.getPath());
 			this.document= document;
 		}
 		return document;
