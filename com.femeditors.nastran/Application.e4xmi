@@ -4,10 +4,6 @@
     <children xsi:type="basic:PartSashContainer" xmi:id="_h6RFQGIAEeWlf9oUXD0xnQ" elementId="test-base-plugin.partsashcontainer.0" containerData="" horizontal="true">
       <children xsi:type="basic:PartStack" xmi:id="_lQW3UGIAEeWlf9oUXD0xnQ" elementId="test-base-plugin.partstack.0" containerData="1000">
         <children xsi:type="basic:Part" xmi:id="_9e7BoN4WEeWuYJxF_6pKNA" elementId="test-base-plugin.part.documents" contributionURI="bundleclass://com.femeditors.nastran/es.robes.navigators.OpenDocumentsBrowser" label="Documents" iconURI="platform:/plugin/com.femeditors.nastran/icons/documents-symbol.png"/>
-        <children xsi:type="basic:Part" xmi:id="__00GEGIDEeWlf9oUXD0xnQ" elementId="test-base-plugin.part.filebrowser" contributionURI="bundleclass://com.femeditors.nastran/es.robes.navigators.FileBrowserPart" label="FileBrowser" iconURI="">
-          <toolbar xmi:id="_z81fYNSqEeWCTooCWlbt9Q" elementId="test-base-plugin.toolbar.4"/>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_TEKW8H17EeWKXu9TBL9atA" elementId="test-base-plugin.part.pdfexplorer" contributionURI="bundleclass://com.femeditors.nastran/es.robes.navigators.PDFFileBrowserPart" label="PDF Explorer" iconURI="platform:/plugin/com.femeditors.nastran/icons/pdf_documents.png"/>
       </children>
       <children xsi:type="basic:PartStack" xmi:id="_DFGL4DXiEeWSTYCzzOdP_w" elementId="test-base-plugin.partstack" containerData="3000">
         <tags>NoAutoCollapse</tags>
