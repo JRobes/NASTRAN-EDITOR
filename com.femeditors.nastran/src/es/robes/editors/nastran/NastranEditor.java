@@ -447,21 +447,20 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 			if(temp!= null){
 				
 				System.out.println("guardando los datos...\t" + temp);
-				Path pathToSave = Paths.get(temp);
-				//File newFile = new File(temp);
+				//Path pathToSave = Paths.get(temp);
+				documentPath= Paths.get(temp);
 				
-				//fileIn.setFile(newFile);
-				//file = newFile;
 				System.out.println("guardando los datos...111111");
+				System.out.println("El path para salvar\t"+ documentPath.toString());
 				//fileIn.save();
 				savePart();
 				System.out.println("guardando los datos...222222");
-				parte.setLabel(pathToSave.getFileName().toString());
+				parte.setLabel(documentPath.getFileName().toString());
 				dirty.setDirty(false);
 				isNewFile = false;
 				System.out.println("guardando los datos...333333");
-				pathBroker[1] = pathToSave;
-			    parte.getTransientData().put("File Name", pathToSave.toString());
+				pathBroker[1] = documentPath;
+			    parte.getTransientData().put("File Name", documentPath.toString());
 			    broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
 			    broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
 

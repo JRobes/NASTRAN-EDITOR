@@ -88,6 +88,7 @@ public class TextEditorPart implements IDocumentInput {
 	
 	public IStatus savePart() {
 		System.err.println("Starting save");
+		System.out.println("Document path:\t"+ documentPath.toString());
 		
 		if (documentPath == null){
 			System.err.println("NUNCA DEBE ENTRAR AQUI....");
@@ -119,9 +120,13 @@ public class TextEditorPart implements IDocumentInput {
 		OutputStream fooStream = null;
 		try {
 			byteBuffer = encoder.encode(CharBuffer.wrap(document.get()));
-			if (byteBuffer.hasArray())
+			if (byteBuffer.hasArray()){
+				System.out.println("hasarray true");
 				bytes= byteBuffer.array();
+			}
+				
 			else {
+				System.out.println("hasarray FALSE");
 				bytes= new byte[byteBuffer.limit()];
 				byteBuffer.get(bytes);
 			}
