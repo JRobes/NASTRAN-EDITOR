@@ -2,10 +2,7 @@
 package es.robes.editors.nastran;
 
 import java.io.File;
-import java.net.URI;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -27,7 +24,6 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
-import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
@@ -68,8 +64,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
-
-
 import com.femeditors.model.TextEditorPart;
 import com.femeditors.nastran.sourceviewerconf.NastranSourceViewerConf;
 
@@ -82,8 +76,6 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	private boolean wsToolBarButtonStatus = false;
 	/** The SourceViewer control to create the Nastran editor. */
 	public SourceViewer sv = null;
-	/** StyledText wrapped by SourceViewer control. */
-	//public StyledText st = null;
 	/** Object used to paint non-printable characters: tab, space & RC. */
 	private WhitespaceCharacterPainter whitespaceCharacterPainter;
 	/** hPixel stores the value of the horizontal pixel of the StyledText 
@@ -91,17 +83,14 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	int hPixel = 0;
 	PaletteData paletteData;
 	/**SI SE DECLARAN ESTAS VARIABLES DE DEBAJO COMO STATIC SOLAMENTE PINTA EL ULTIMO PART
-	 * TAL COMO PASABA CON PINTAR LOS WHITESPACES
-	 */
+	 * TAL COMO PASABA CON PINTAR LOS WHITESPACES	 */
 	Image whiteImage = null;
-	//Image leftMarginImage = null;
 	Image backgroundImage = null;
 	
 	ImageData imageData;
 	
 	public final int MAX_PIXELS_SIZE = 5000;
 	//private File[] fileBroker = {null,null};
-	private Path[] pathBroker = {null,null};
 	
 	@Inject INewDocumentNumberProvider numNuevosDocs;
    
@@ -128,7 +117,6 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
         paletteData = new PaletteData(new RGB[] {new RGB(255,255,255), new RGB(245,245,245)});
 
 		ImageData whiteBackgroundImageData = new ImageData(1,1,1,paletteData);
-		//ORIGINAL PERO DE FALLO
 		imageData = new ImageData(MAX_PIXELS_SIZE,1,1,paletteData);
 		List<MStackElement> stackElement = partStack.getChildren();
 		System.out.println("Number of NastranEditor parts: " +stackElement.size());
@@ -153,21 +141,10 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	    sv = new SourceViewer(parent, verticalRuler, overviewRuler, true, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
 	   // sv = new SourceViewer(parent, ruler, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
 	    st = sv.getTextWidget();
-	    
-	    //NastranSourceViewerConf nsvconf = new NastranSourceViewerConf();
-	    // sv.configure(nsvconf);
 	    sv.configure(new NastranSourceViewerConf());
-	    //nsvconf.jander();
-	    
 		System.out.println("NUMERO DE PIXELS EN EL LADO IZDO:\t" + st.getLeftMargin());
 		st.setLeftMargin(0);
-				
 	    Font fuente = new Font(parent.getDisplay(),new FontData("Monospac821 BT",10,SWT.NORMAL));
-	    //Font fuente = new Font(parent.getDisplay(),new FontData("Consolas",10,SWT.NORMAL));
-	    //System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-	    //System.out.println("FONT-DATA....\t"+ Arrays.toString(fuente.getFontData()));
-	    ///FontData fd = 	fuente.getFontData()[1];
-	    //parent..getDisplay()
 	    st.setFont(fuente);
 	    GC gc = new GC(display);
 	   // System.out.println("average char width.......\t"+gc.getFontMetrics().getAverageCharWidth());
@@ -266,15 +243,6 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 			  paintBackground(imageData, display);
          }
         });
-    
-      /*
-        st.addListener(SWT.CLOSE, new Listener() {
-            public void handleEvent(Event event) {
-          	  System.out.println("La X de CLOSE..");
-  			  paintBackground(imageData, display);
-           }
-          });
-     */
         hBar.addListener(SWT.Selection, new Listener() {
 
             @Override
@@ -283,17 +251,13 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
                 System.out.println("In horizontal bar Listener...");
                 System.out.println("Horizontal Pixel."+  st.getHorizontalPixel());
 				paintBackground(imageData, display);
-                
             }
-
         });
-        
         st.addModifyListener(new ModifyListener(){
 
 			@Override
 			public void modifyText(ModifyEvent e) {
 				dirty.setDirty(true);
-				
 			}
         	
         });
@@ -339,57 +303,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 				}
 		}
 	} 
-	
-	/**
-	 * Update the WhiteSpace toolbar button when the part is active.
-	 * Only the active part is updated 
-	 * 
-	 * @param activePart
-	 */
 
-	
-	/*
-	@Inject
-	@Optional
-	public void updateWSButtonByPart(@Named(IServiceConstants.ACTIVE_PART) MPart activePart) {
-		//System.out.println("EL PART ACTIVO TIENE LABEL:\t" + parte.getLabel());
-		//System.out.println("PARTE"+parte.getLabel()+"\t"+ wsToolBarButtonStatus);
-		//System.out.println("PARTE"+activePart.getLabel());
-
-		if (parte.equals(activePart)) {
-			
-			System.out.println("EL PART ACTIVO TIENE LABEL:\t" + parte.getLabel());
-    		MWindow window = (MWindow) modelService.find("test-base-plugin.trimmedwindow", app);
-
-			if(file == null){
-	    		
-	    		broker.post(NastranEditorEventConstants.STATUSBAR, parte.getLabel());
-	    		window.setLabel(NastranEditorEventConstants.APPLICATION_TITLE +" - " + parte.getLabel());
-	    	}
-			else{
-				broker.post(NastranEditorEventConstants.STATUSBAR, file.getAbsolutePath());
-				window.setLabel(NastranEditorEventConstants.APPLICATION_TITLE +" - "  + file.getAbsolutePath());
-			}
-	
-			MToolItem item = (MToolItem) modelService.find("es.robes.nastraneditor.toolbarbuttons.whitespacespainterbutton",app);
-			item.setSelected(wsToolBarButtonStatus);
-			if(wsToolBarButtonStatus){
-			    //sv.addPainter(whitespaceCharacterPainter);
-				whitespaceCharacterPainter.paint(IPainter.SELECTION);
-				//System.out.println("Painting the monkey......");
-			}
-			else{
-				whitespaceCharacterPainter.deactivate(true);
-				sv.removePainter(whitespaceCharacterPainter);
-				
-				//System.out.println("Deactivating......");
-
-			} 
-		}
-
-	} 
-	*/
-	
     private  void paintBackground(ImageData imageData, Display display) {
     	if(hPixel != st.getHorizontalPixel()){
     		hPixel = st.getHorizontalPixel();
@@ -474,18 +388,14 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 			//fileIn.save();
 			savePart();
 			dirty.setDirty(false);
-
-
 		}
-		
-	
 	}
+	
 	@Focus
 	public void onFocus(MToolItem item) {
 		//styledText.setFocus();
 		item.setSelected(wsToolBarButtonStatus);	
 		System.out.println("On Focus, el Mtoolitem es:\t" +item.getElementId());
-
 	}
 	
 	@PreDestroy
@@ -500,30 +410,10 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	    if(st != null) st.dispose();
 	    
 	    //if(file != null)
-	    
+	    System.out.println("NastranEditor.dispose()\t" +pathBroker[0].toString());
 	    broker.post(NastranEditorEventConstants.FILE_CLOSE, pathBroker );
 
 	}
-
-/*
-	@Override
-	public void cut() {
-		st.cut();
-		
-	}
-
-
-	@Override
-	public void copy() {
-		st.copy();
-	}
-
-
-	@Override
-	public void paste() {
-		st.paste();
-	}
-*/
 
 	@Override
 	public IRegion find(String findString, boolean searchFordward, int initialCaretOffset) {
@@ -536,18 +426,11 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 						}
 						return documentAdapter.find(st.getCaretOffset(), findString, searchFordward, true, true, false);
 				
-				
-				
-				
 				} catch (BadLocationException argh) {
 					System.out.println("HA Entrado en el badlocationexception" +argh);
 					return null;
 				}
-			
-			
 	}
-	
-	
 	@Inject
 	@Optional
 	public void searchTextListener(@UIEventTopic(NastranEditorEventConstants.FIND_TEXT_ALL_EVENTS) org.osgi.service.event.Event events) {
@@ -575,17 +458,10 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
     				
     				//st.setSelection(st.getCaretOffset(), st.getCaretOffset()+region.getLength());
     				break;
-    		
 			}
 			System.out.println("REGION....\t" + region.toString() );
-
-			
-			
-			
 		}
-			
 	}
-
 	
 	@Inject
 	@Optional
@@ -594,29 +470,5 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 			
 			broker.post(NastranEditorEventConstants.STATUSBAR, (String)parte.getTransientData().get("File Path"));
 		}
-		
-		
 	}
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

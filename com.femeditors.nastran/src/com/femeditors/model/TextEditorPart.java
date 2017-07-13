@@ -27,6 +27,8 @@ public class TextEditorPart implements IDocumentInput {
 	public static Path documentPath = null;
 	private IDocument document;
 	public boolean isNewFile = false;
+	protected Path[] pathBroker = {null,null};
+
 
 	private static final int DEFAULT_FILE_SIZE = 15 * 1024;
 
