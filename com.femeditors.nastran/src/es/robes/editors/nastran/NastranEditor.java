@@ -48,7 +48,6 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
@@ -66,10 +65,10 @@ import org.osgi.service.prefs.Preferences;
 
 import com.femeditors.model.TextEditorPart;
 import com.femeditors.nastran.sourceviewerconf.NastranSourceViewerConf;
+import com.nastraneditor.osgi.services.genericnastraneditordata.IGenericNastranEditorData;
 
 import es.robes.nastraneditor.events.BackgroundPixels;
 import es.robes.nastraneditor.events.NastranEditorEventConstants;
-import sebor.osgi.services.newdocumentnumber.INewDocumentNumberProvider;
 
 public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart {
 	/** Indicates the status of the WhiteSpaceCharacterPainter button on the toolbar for this part. */
@@ -92,8 +91,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	public final int MAX_PIXELS_SIZE = 5000;
 	//private File[] fileBroker = {null,null};
 	
-	@Inject INewDocumentNumberProvider numNuevosDocs;
-   
+	@Inject IGenericNastranEditorData configurationData;
 
 	Display display;
 	@Inject	ESelectionService selectionService;
@@ -126,7 +124,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 		String sss = (String)parte.getTransientData().get("File Name");
 		String tempDir = System.getProperty("java.io.tmpdir");
 		if(sss==null){
-			sss = "Document"+numNuevosDocs.getNewDocumentNumber()+".bdf";
+			sss = "Document"+configurationData.getNewDocumentNumber()+".bdf";
 			isNewFile = true;
 		}
 		documentPath = Paths.get(sss);		
@@ -144,7 +142,8 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	    sv.configure(new NastranSourceViewerConf());
 		System.out.println("NUMERO DE PIXELS EN EL LADO IZDO:\t" + st.getLeftMargin());
 		st.setLeftMargin(0);
-	    Font fuente = new Font(parent.getDisplay(),new FontData("Monospac821 BT",10,SWT.NORMAL));
+		//new FontData("Monospac821 BT",10,SWT.NORMAL)
+	    Font fuente = new Font(parent.getDisplay(), configurationData.getFontData());
 	    st.setFont(fuente);
 	    GC gc = new GC(display);
 	   // System.out.println("average char width.......\t"+gc.getFontMetrics().getAverageCharWidth());
