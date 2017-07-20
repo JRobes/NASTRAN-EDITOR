@@ -4,7 +4,11 @@ Bundle-Name: Imageloader
 Bundle-SymbolicName: sebor.osgi.services.imageloader
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: org.eclipse.core.runtime;version="3.5.0",
+ org.eclipse.jface.resource,
+ org.eclipse.swt.graphics,
+ org.osgi.framework;version="1.8.0"
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface
-Bundle-ActivationPolicy: lazy
 Export-Package: sebor.osgi.services.imageloader
+

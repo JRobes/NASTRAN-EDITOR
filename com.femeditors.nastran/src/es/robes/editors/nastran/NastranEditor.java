@@ -85,11 +85,9 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	 * TAL COMO PASABA CON PINTAR LOS WHITESPACES	 */
 	Image whiteImage = null;
 	Image backgroundImage = null;
-	
 	ImageData imageData;
 	
 	public final int MAX_PIXELS_SIZE = 5000;
-	//private File[] fileBroker = {null,null};
 	
 	@Inject IGenericNastranEditorData configurationData;
 
@@ -107,20 +105,15 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	}
 		
 	@PostConstruct
-	public void postConstruct(Composite parent, EPartService partService, MApplication application) {
+	public void postConstruct(Composite parent) {
 		MPartStack partStack = (MPartStack)modelService.find("test-base-plugin.partstack", app);
-		//partStack = (MPartStack)modelService.find("test-base-plugin.partstack", app);
 		display = parent.getDisplay();
-		//List<MStackElement> stackElement = partStack.getChildren();
         paletteData = new PaletteData(new RGB[] {new RGB(255,255,255), new RGB(245,245,245)});
-
 		ImageData whiteBackgroundImageData = new ImageData(1,1,1,paletteData);
 		imageData = new ImageData(MAX_PIXELS_SIZE,1,1,paletteData);
 		List<MStackElement> stackElement = partStack.getChildren();
 		System.out.println("Number of NastranEditor parts: " +stackElement.size());
-		
 		parte.getTags().add(EPartService.REMOVE_ON_HIDE_TAG);
-		//filePath = Paths.;
 		String sss = (String)parte.getTransientData().get("File Name");
 		String tempDir = System.getProperty("java.io.tmpdir");
 		if(sss==null){

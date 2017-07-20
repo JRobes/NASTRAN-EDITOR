@@ -5,6 +5,9 @@ Bundle-SymbolicName: com.nastraneditor.osgi.services
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: NASTRANEDITOR
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Import-Package: org.eclipse.swt.graphics
+Import-Package: org.eclipse.core.runtime;version="3.5.0",
+ org.eclipse.jface.resource,
+ org.eclipse.swt.graphics,
+ org.osgi.framework;version="1.8.0"
 Require-Bundle: org.eclipse.swt;bundle-version="3.104.2"
-Export-Package: com.nastraneditor.osgi.services.genericnastraneditordata
+Export-Package: com.nastraneditor.osgi.services.genericnastraneditordata 

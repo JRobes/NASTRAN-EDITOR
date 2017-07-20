@@ -14,14 +14,15 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.core.contexts,
  org.eclipse.e4.ui.workbench.renderers.swt,
  org.eclipse.jface.text,
- sebor.osgi.services.imageloader,
  org.eclipse.core.filesystem,
  org.eclipse.e4.core.services,
  org.eclipse.osgi.services,
+ sebor.osgi.services.imageloader,
  org.eclipse.e4.core.commands,
  org.eclipse.e4.core.di.extensions,
- com.nastraneditor.osgi.services;bundle-version="1.0.0"
+ com.nastraneditor.osgi.services
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/component.xml,OSGI-INF/mycomponent.xml
+Service-Component: OSGI-INF/mycomponent.xml,
+ OSGI-INF/component-imageloader.xml
 Import-Package: javax.annotation;version="1.0.0",
  javax.inject;version="1.0.0"
