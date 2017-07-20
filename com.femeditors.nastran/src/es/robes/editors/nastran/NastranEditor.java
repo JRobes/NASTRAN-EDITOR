@@ -86,12 +86,12 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	Image whiteImage = null;
 	Image backgroundImage = null;
 	ImageData imageData;
-	
+	Display display;
 	public final int MAX_PIXELS_SIZE = 5000;
 	
 	@Inject IGenericNastranEditorData configurationData;
 
-	Display display;
+
 	@Inject	ESelectionService selectionService;
 	@Inject	EModelService modelService;
 	@Inject MApplication app;
@@ -114,13 +114,13 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 		List<MStackElement> stackElement = partStack.getChildren();
 		System.out.println("Number of NastranEditor parts: " +stackElement.size());
 		parte.getTags().add(EPartService.REMOVE_ON_HIDE_TAG);
-		String sss = (String)parte.getTransientData().get("File Name");
-		String tempDir = System.getProperty("java.io.tmpdir");
-		if(sss==null){
-			sss = "Document"+configurationData.getNewDocumentNumber()+".bdf";
+		String fileName = (String)parte.getTransientData().get("File Name");
+		//String tempDir = System.getProperty("java.io.tmpdir");
+		if(fileName==null){
+			fileName = "Document"+configurationData.getNewDocumentNumber()+".bdf";
 			isNewFile = true;
 		}
-		documentPath = Paths.get(sss);		
+		documentPath = Paths.get(fileName);		
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 	    System.out.println("+"+documentPath.getParent());
 	    System.out.println("+"+documentPath.getFileName());
@@ -130,25 +130,16 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	    IVerticalRuler  verticalRuler = new VerticalRuler(10);
 	    OverviewRuler overviewRuler = new OverviewRuler(null, 20, null);
 	    sv = new SourceViewer(parent, verticalRuler, overviewRuler, true, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
-	   // sv = new SourceViewer(parent, ruler, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
 	    st = sv.getTextWidget();
 	    sv.configure(new NastranSourceViewerConf());
 		System.out.println("NUMERO DE PIXELS EN EL LADO IZDO:\t" + st.getLeftMargin());
 		st.setLeftMargin(0);
-		//new FontData("Monospac821 BT",10,SWT.NORMAL)
 	    Font fuente = new Font(parent.getDisplay(), configurationData.getFontData());
 	    st.setFont(fuente);
 	    GC gc = new GC(display);
-	   // System.out.println("average char width.......\t"+gc.getFontMetrics().getAverageCharWidth());
 	    whitespaceCharacterPainter = new  WhitespaceCharacterPainter(sv);
     	//IMPORTAR EL DOCUMENTO!!!!!!!
 	    sv.setDocument(this.getDocument());
-    	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    	File f = new File(parte.getLabel());
-    	System.out.println(f.getAbsolutePath());
-    	System.out.println(f.getName());
-      	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-
       	pathBroker[0] = documentPath; 
 	    broker.post(NastranEditorEventConstants.FILE_NEW, pathBroker );
 	   
@@ -340,6 +331,8 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 			String temp = saveDialogv.open();
 			System.out.println("guardando los datos...\t" + temp);
 		}
+		
+		
 	
 	}
 	@Override
@@ -381,6 +374,8 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 			savePart();
 			dirty.setDirty(false);
 		}
+		
+		
 	}
 	
 	@Focus

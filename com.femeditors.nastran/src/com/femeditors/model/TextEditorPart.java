@@ -14,12 +14,18 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
+
+import es.robes.nastraneditor.events.NastranEditorEventConstants;
 
 public class TextEditorPart implements IDocumentInput {
 	public StyledText st = null;
@@ -29,7 +35,7 @@ public class TextEditorPart implements IDocumentInput {
 	public boolean isNewFile = false;
 	protected Path[] pathBroker = {null,null};
 
-
+	//public Display display;
 	private static final int DEFAULT_FILE_SIZE = 15 * 1024;
 
 	
@@ -87,7 +93,13 @@ public class TextEditorPart implements IDocumentInput {
 	
 	
 	
-	
+	public boolean guardarArchivo(){
+
+		
+		
+		return false;
+			
+	}
 	public IStatus savePart() {
 		System.err.println("Starting save");
 		System.out.println("Document path:\t"+ documentPath.toString());
