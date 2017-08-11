@@ -86,7 +86,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	Image whiteImage = null;
 	Image backgroundImage = null;
 	ImageData imageData;
-	Display display;
+	
 	public final int MAX_PIXELS_SIZE = 5000;
 	
 	@Inject IGenericNastranEditorData configurationData;
@@ -107,7 +107,7 @@ public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart
 	@PostConstruct
 	public void postConstruct(Composite parent) {
 		MPartStack partStack = (MPartStack)modelService.find("test-base-plugin.partstack", app);
-		display = parent.getDisplay();
+		super.display = parent.getDisplay();
         paletteData = new PaletteData(new RGB[] {new RGB(255,255,255), new RGB(245,245,245)});
 		ImageData whiteBackgroundImageData = new ImageData(1,1,1,paletteData);
 		imageData = new ImageData(MAX_PIXELS_SIZE,1,1,paletteData);

@@ -34,7 +34,7 @@ public class TextEditorPart implements IDocumentInput {
 	private IDocument document;
 	public boolean isNewFile = false;
 	protected Path[] pathBroker = {null,null};
-
+	protected Display display;
 	//public Display display;
 	private static final int DEFAULT_FILE_SIZE = 15 * 1024;
 
@@ -93,13 +93,55 @@ public class TextEditorPart implements IDocumentInput {
 	
 	
 	
-	public boolean guardarArchivo(){
-
+	public boolean AAsave(){
+		System.out.println("guardando los datos...");
+		//System.out.println("guardando los datos..."+ file.getAbsolutePath());
+		if (isNewFile){
+			
+			FileDialog saveDialogv= new FileDialog(display.getActiveShell(), SWT.SAVE);
+			String temp = saveDialogv.open();
+			if(temp!= null){
+				
+				System.out.println("guardando los datos...\t" + temp);
+				//Path pathToSave = Paths.get(temp);
+				documentPath= Paths.get(temp);
+				
+				System.out.println("guardando los datos...111111");
+				System.out.println("El path para salvar\t"+ documentPath.toString());
+				//fileIn.save();
+				savePart();
+				System.out.println("guardando los datos...222222");
+				//
+				//parte.setLabel(documentPath.getFileName().toString());
+				//dirty.setDirty(false);
+				//
+				isNewFile = false;
+				System.out.println("guardando los datos...333333");
+				pathBroker[1] = documentPath;
+			    //
+				//parte.getTransientData().put("File Name", documentPath.toString());
+			    //broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
+			    //broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
+				//
+			}
+	
+			else{
+				System.out.println("FileDialog cancelado ... No hay cambios");
+			}
+		}
+		else{
+			
+			savePart();
+			//
+			//dirty.setDirty(false);
+			//
+		}
+		
 		
 		
 		return false;
-			
 	}
+	
 	public IStatus savePart() {
 		System.err.println("Starting save");
 		System.out.println("Document path:\t"+ documentPath.toString());
