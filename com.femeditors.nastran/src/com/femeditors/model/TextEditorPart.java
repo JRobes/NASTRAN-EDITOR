@@ -25,8 +25,6 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 
-import es.robes.nastraneditor.events.NastranEditorEventConstants;
-
 public abstract class TextEditorPart implements IDocumentInput {
 	public StyledText st = null;
 	//public File file;
@@ -93,30 +91,26 @@ public abstract class TextEditorPart implements IDocumentInput {
 	
 	
 	
-	public boolean AAsave(){
-		System.out.println("guardando los datos...");
-		//System.out.println("guardando los datos..."+ file.getAbsolutePath());
+	public boolean save(){
+		System.out.println("Entra en save()...");
 		if (isNewFile){
 			
 			FileDialog saveDialogv= new FileDialog(display.getActiveShell(), SWT.SAVE);
 			String temp = saveDialogv.open();
 			if(temp!= null){
 				
-				System.out.println("guardando los datos...\t" + temp);
-				//Path pathToSave = Paths.get(temp);
+				System.out.println("Nuevo archivo, con nombre...\t" + temp);
 				documentPath= Paths.get(temp);
-				
-				System.out.println("guardando los datos...111111");
+		
 				System.out.println("El path para salvar\t"+ documentPath.toString());
-				//fileIn.save();
 				savePart();
-				System.out.println("guardando los datos...222222");
+				System.out.println("los datos deberian estar ya guardados...222222");
 				//
 				//parte.setLabel(documentPath.getFileName().toString());
 				//dirty.setDirty(false);
 				//
 				isNewFile = false;
-				System.out.println("guardando los datos...333333");
+				System.out.println("ahora actualiza el pathBroker...333333");
 				pathBroker[1] = documentPath;
 			    //
 				//parte.getTransientData().put("File Name", documentPath.toString());
@@ -136,10 +130,11 @@ public abstract class TextEditorPart implements IDocumentInput {
 			//dirty.setDirty(false);
 			//
 		}
+		return isNewFile;
 		
 		
 		
-		return false;
+		//return false;
 	}
 	
 	public IStatus savePart() {
@@ -150,7 +145,50 @@ public abstract class TextEditorPart implements IDocumentInput {
 			System.err.println("NUNCA DEBE ENTRAR AQUI....");
 		}
 		else{
-			saveDocument();
+			String encoding = "ASCII";
+			
+			Charset charset= Charset.forName(encoding);
+			CharsetEncoder encoder = charset.newEncoder();
+			
+			byte[] bytes;
+			ByteBuffer byteBuffer;
+			OutputStream fooStream = null;
+			try {
+				byteBuffer = encoder.encode(CharBuffer.wrap(document.get()));
+				if (byteBuffer.hasArray()){
+					System.out.println("hasarray true");
+					bytes= byteBuffer.array();
+				}
+					
+				else {
+					System.out.println("hasarray FALSE");
+					bytes= new byte[byteBuffer.limit()];
+					byteBuffer.get(bytes);
+				}
+				
+				//ByteArrayInputStream stream= new ByteArrayInputStream(bytes, 0, byteBuffer.limit());
+				
+				try {
+					fooStream = Files.newOutputStream(documentPath);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//.newOutputStream(documentPath, false);
+						//new FileOutputStream(file, false);	// true to append
+		         												// false to overwrite. 
+				try {
+					fooStream.write(bytes);
+					fooStream.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+							
+			} catch (CharacterCodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 
@@ -160,58 +198,6 @@ public abstract class TextEditorPart implements IDocumentInput {
 		
 		return null;
 	}
-	
-	
-	
-	
-	
-	private void saveDocument() {
-		String encoding = "ASCII";
-			
-		Charset charset= Charset.forName(encoding);
-		CharsetEncoder encoder = charset.newEncoder();
-		
-		byte[] bytes;
-		ByteBuffer byteBuffer;
-		OutputStream fooStream = null;
-		try {
-			byteBuffer = encoder.encode(CharBuffer.wrap(document.get()));
-			if (byteBuffer.hasArray()){
-				System.out.println("hasarray true");
-				bytes= byteBuffer.array();
-			}
-				
-			else {
-				System.out.println("hasarray FALSE");
-				bytes= new byte[byteBuffer.limit()];
-				byteBuffer.get(bytes);
-			}
-			
-			//ByteArrayInputStream stream= new ByteArrayInputStream(bytes, 0, byteBuffer.limit());
-			
-			try {
-				fooStream = Files.newOutputStream(documentPath);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//.newOutputStream(documentPath, false);
-					//new FileOutputStream(file, false);	// true to append
-	         												// false to overwrite. 
-			try {
-				fooStream.write(bytes);
-				fooStream.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-						
-		} catch (CharacterCodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 
 	@Override
 	public void copy() {

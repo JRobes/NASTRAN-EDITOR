@@ -335,8 +335,8 @@ public class NastranEditor extends TextEditorPart {
 		
 	
 	}
-	@Override
-	public void save(){
+	
+	public void Mysave(){
 		System.out.println("guardando los datos...");
 		//System.out.println("guardando los datos..."+ file.getAbsolutePath());
 		if (isNewFile){

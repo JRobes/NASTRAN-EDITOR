@@ -5,7 +5,7 @@ import org.eclipse.jface.text.IRegion;
 public interface IDocumentInput {
 	//public IDocument getDocument();
 	//public IStatus save();
-	public void save();
+	public boolean save();
 	public void copy();
 	public void paste();
 	public void cut();
