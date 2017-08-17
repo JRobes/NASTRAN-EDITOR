@@ -70,7 +70,7 @@ import com.nastraneditor.osgi.services.genericnastraneditordata.IGenericNastranE
 import es.robes.nastraneditor.events.BackgroundPixels;
 import es.robes.nastraneditor.events.NastranEditorEventConstants;
 
-public class NastranEditor extends TextEditorPart implements ISaveTextEditorPart {
+public class NastranEditor extends TextEditorPart {
 	/** Indicates the status of the WhiteSpaceCharacterPainter button on the toolbar for this part. */
 	private boolean wsToolBarButtonStatus = false;
 	/** The SourceViewer control to create the Nastran editor. */

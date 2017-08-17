@@ -22,7 +22,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.osgi.service.event.Event;
 
-import es.robes.editors.nastran.ISaveTextEditorPart;
 import es.robes.nastraneditor.events.NastranEditorEventConstants;
 
 public class SearchToolItem {

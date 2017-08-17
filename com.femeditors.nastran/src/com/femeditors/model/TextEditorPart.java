@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import es.robes.nastraneditor.events.NastranEditorEventConstants;
 
-public class TextEditorPart implements IDocumentInput {
+public abstract class TextEditorPart implements IDocumentInput {
 	public StyledText st = null;
 	//public File file;
 	public static Path documentPath = null;

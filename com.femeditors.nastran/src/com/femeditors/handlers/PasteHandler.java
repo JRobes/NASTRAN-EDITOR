@@ -17,9 +17,6 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 
 import com.femeditors.model.IDocumentInput;
 
-import es.robes.editors.nastran.ISaveTextEditorPart;
-
-
 
 public class PasteHandler {
 	@CanExecute
