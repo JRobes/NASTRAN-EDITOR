@@ -347,6 +347,7 @@ public class NastranEditor extends TextEditorPart {
 
 			saveDialogv.setFileName(documentPath.getFileName().toString());
 			String temp = saveDialogv.open();
+			
 			if(temp!= null){
 				
 				System.out.println("Nuevo archivo, con nombre...\t" + temp);
