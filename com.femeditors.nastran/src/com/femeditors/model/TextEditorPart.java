@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.FileDialog;
 public abstract class TextEditorPart implements IDocumentInput {
 	public StyledText st = null;
 	//public File file;
-	public static Path documentPath = null;
+	protected static Path documentPath = null;
 	private IDocument document;
 	public boolean isNewFile = false;
 	protected Path[] pathBroker = {null,null};
@@ -90,54 +90,9 @@ public abstract class TextEditorPart implements IDocumentInput {
 	}
 	
 	
+
 	
-	public boolean save(){
-		System.out.println("Entra en save()...");
-		if (isNewFile){
-			
-			FileDialog saveDialogv= new FileDialog(display.getActiveShell(), SWT.SAVE);
-			String temp = saveDialogv.open();
-			if(temp!= null){
-				
-				System.out.println("Nuevo archivo, con nombre...\t" + temp);
-				documentPath= Paths.get(temp);
-		
-				System.out.println("El path para salvar\t"+ documentPath.toString());
-				savePart();
-				System.out.println("los datos deberian estar ya guardados...222222");
-				//
-				//parte.setLabel(documentPath.getFileName().toString());
-				//dirty.setDirty(false);
-				//
-				isNewFile = false;
-				System.out.println("ahora actualiza el pathBroker...333333");
-				pathBroker[1] = documentPath;
-			    //
-				//parte.getTransientData().put("File Name", documentPath.toString());
-			    //broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
-			    //broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
-				//
-			}
-	
-			else{
-				System.out.println("FileDialog cancelado ... No hay cambios");
-			}
-		}
-		else{
-			
-			savePart();
-			//
-			//dirty.setDirty(false);
-			//
-		}
-		return isNewFile;
-		
-		
-		
-		//return false;
-	}
-	
-	public IStatus savePart() {
+	protected IStatus savePart() {
 		System.err.println("Starting save");
 		System.out.println("Document path:\t"+ documentPath.toString());
 		

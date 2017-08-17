@@ -12,6 +12,7 @@ import javax.inject.Named;
 
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Focus;
@@ -24,11 +25,13 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.e4.ui.workbench.modeling.IWindowCloseHandler;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.FindReplaceDocumentAdapter;
 import org.eclipse.jface.text.IPainter;
@@ -99,7 +102,9 @@ public class NastranEditor extends TextEditorPart {
 	@Inject MDirtyable dirty;
 	@Inject MPart parte;
 	@Inject IEventBroker broker;
-
+	
+	
+	
 	@Inject
 	public NastranEditor(Composite parent) {
 	}
@@ -115,7 +120,6 @@ public class NastranEditor extends TextEditorPart {
 		System.out.println("Number of NastranEditor parts: " +stackElement.size());
 		parte.getTags().add(EPartService.REMOVE_ON_HIDE_TAG);
 		String fileName = (String)parte.getTransientData().get("File Name");
-		//String tempDir = System.getProperty("java.io.tmpdir");
 		if(fileName==null){
 			fileName = "Document"+configurationData.getNewDocumentNumber()+".bdf";
 			isNewFile = true;
@@ -317,23 +321,72 @@ public class NastranEditor extends TextEditorPart {
 	}
     
 	@Persist
-	public void guardarDatos(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell){
-		System.out.println("guardando los datos...");
-		System.out.println("guardando los datos..."+ documentPath.toString());
-		if (!isNewFile){
-			//fileIn.save();
-			savePart();
-			dirty.setDirty(false);
-		}
-		else{
-			FileDialog saveDialogv= new FileDialog(shell, SWT.SAVE);
-			
-			String temp = saveDialogv.open();
-			System.out.println("guardando los datos...\t" + temp);
-		}
+	public void guardarDatos(IEclipseContext context, MWindow window ){
+	boolean saved = false;
+	saved =	save();
+	IWindowCloseHandler handler = window.getContext().getActive(IWindowCloseHandler.class);
+	
+	if(isNewFile && !saved)
+		handler.close(window);
 		
 		
 	
+	}
+	
+	@Override
+	public boolean save(){
+		String cadena = documentPath.getFileName().toString();
+		System.out.println("DOCUMENTO NOMBREEEEEEEE\t"+ cadena);
+		System.out.println("Entra en save()...");
+		if (isNewFile){
+			
+			FileDialog saveDialogv= new FileDialog(display.getActiveShell(), SWT.SAVE);
+			
+			
+			System.out.println("DOCUMENTO NOMBREEEEEEEE\t"+ cadena);
+
+			saveDialogv.setFileName(documentPath.getFileName().toString());
+			String temp = saveDialogv.open();
+			if(temp!= null){
+				
+				System.out.println("Nuevo archivo, con nombre...\t" + temp);
+				documentPath= Paths.get(temp);
+		
+				System.out.println("El path para salvar\t"+ documentPath.toString());
+				savePart();
+				System.out.println("los datos deberian estar ya guardados...222222");
+				//
+				//parte.setLabel(documentPath.getFileName().toString());
+				//dirty.setDirty(false);
+				//
+				isNewFile = false;
+				System.out.println("ahora actualiza el pathBroker...333333");
+				pathBroker[1] = documentPath;
+			   
+				parte.getTransientData().put("File Name", documentPath.toString());
+			    broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
+			    broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
+			    dirty.setDirty(false);
+			    //
+			}
+	
+			else{
+				System.out.println("FileDialog cancelado ... No hay cambios");
+				return false;
+			}
+		}
+		else{
+			
+			savePart();
+			//
+			dirty.setDirty(false);
+			//
+		}
+		return true;
+		
+		
+		
+		//return false;
 	}
 	
 	public void Mysave(){
