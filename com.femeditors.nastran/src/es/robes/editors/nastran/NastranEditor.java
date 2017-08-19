@@ -324,10 +324,10 @@ public class NastranEditor extends TextEditorPart {
 	public void guardarDatos(IEclipseContext context, MWindow window ){
 	boolean saved = false;
 	saved =	save();
-	IWindowCloseHandler handler = window.getContext().getActive(IWindowCloseHandler.class);
+	//IWindowCloseHandler handler = window.getContext().getActive(IWindowCloseHandler.class);
 	
-	if(isNewFile && !saved)
-		handler.close(window);
+	if(isNewFile && !saved);
+		//handler.close(window);
 		
 		
 	
