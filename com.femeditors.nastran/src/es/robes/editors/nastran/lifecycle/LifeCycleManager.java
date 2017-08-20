@@ -23,7 +23,7 @@ public class LifeCycleManager {
 	     MWindow window =(MWindow)modelService.find("test-base-plugin.trimmedwindow", app);
 
 	     eventBroker.subscribe(UIEvents.UILifeCycle.APP_STARTUP_COMPLETE, 
-	                          new AppStartupCompleteEventHandler(window));
+	                          new AppStartupCompleteEventHandler(window, modelService, app));
 	     
 	  }
 
