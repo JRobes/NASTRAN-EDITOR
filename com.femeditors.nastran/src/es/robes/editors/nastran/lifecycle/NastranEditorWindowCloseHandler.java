@@ -67,7 +67,7 @@ public class NastranEditorWindowCloseHandler implements IWindowCloseHandler{
 	private static Collection<EPartService> getAllPartServices(MApplication application) {
 		List<EPartService> partServices = new ArrayList<EPartService>();
 		
-		//fff;
+		//fff;    
 		EPartService partServiceLL = win.getContext().get(EPartService.class);
 		//EModelService modelService = application.getContext().get(EModelService.class);
 		//@SuppressWarnings("null")
