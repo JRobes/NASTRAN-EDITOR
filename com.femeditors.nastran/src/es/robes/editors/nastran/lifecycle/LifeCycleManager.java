@@ -3,6 +3,7 @@ package es.robes.editors.nastran.lifecycle;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.workbench.IWorkbench;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.lifecycle.ProcessAdditions;
 import org.eclipse.e4.ui.workbench.lifecycle.ProcessRemovals;
@@ -21,7 +22,7 @@ public class LifeCycleManager {
 	  public void processAdditions(IEventBroker eventBroker, MApplication app, EModelService modelService)
 	  {
 	     MWindow window =(MWindow)modelService.find("test-base-plugin.trimmedwindow", app);
-
+	     
 	     eventBroker.subscribe(UIEvents.UILifeCycle.APP_STARTUP_COMPLETE, 
 	                          new AppStartupCompleteEventHandler(window, modelService, app));
 	     
