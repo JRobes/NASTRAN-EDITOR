@@ -5,6 +5,7 @@ import org.eclipse.e4.ui.workbench.IWorkbench;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ElementMatcher;
+import org.eclipse.e4.ui.workbench.modeling.ISaveHandler;
 import org.eclipse.e4.ui.workbench.modeling.IWindowCloseHandler;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -18,6 +19,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.commands.MHandler;
 
 
 public class AppStartupCompleteEventHandler implements EventHandler {
@@ -38,6 +40,7 @@ public class AppStartupCompleteEventHandler implements EventHandler {
       System.out.println("MODEL SERVICE    :   "+ application.toString());
       MWindow mw = application.getChildren().get(0);
       application2 = application;
+     wb = application2.getContext().get(IWorkbench.class);
      // myWorkBench = workbench;
     }
 
@@ -47,12 +50,14 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 
 			@Override
 			public boolean close(MWindow window) {
-				System.out.println("SE CERRÓ CORRECTAMENTE...");
+				System.out.println("SE CERRO CORRECTAMENTE...");
+				List<MHandler> listHandlers = window.getHandlers();
+				System.out.println(listHandlers.size());
 				EModelService modelService2 = application2.getContext().get(EModelService.class);
 				Collection<EPartService> allPartServices = getAllPartServices(application2);
-				
 				if (containsDirtyParts(allPartServices)) {
 					System.out.println("TIENE DIRTY PARTS...");
+					
 					return true;
 				}
 				else {
