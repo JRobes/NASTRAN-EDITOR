@@ -29,6 +29,7 @@ public class AppStartupCompleteEventHandler implements EventHandler {
     private MWindow theWindow;
 	private MApplication application2;
 	private static ISaveHandler saveHandler;
+	private EPartService partService;
 	@Inject
 	IWorkbench wb;
 	//private IWorkbench myWorkBench;
@@ -51,13 +52,13 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 
 	@Override
 	public void handleEvent(Event event) {
-		/*
+		
 		theWindow.getContext().set(ISaveHandler.class, new ISaveHandler() {
 
 			@Override
 			public boolean save(MPart dirtyPart, boolean confirm) {
-				// TODO Auto-generated method stub
-				return false;
+				
+				return partService.savePart(dirtyPart, confirm);
 			}
 
 			@Override
@@ -69,8 +70,7 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 			@Override
 			public Save promptToSave(MPart dirtyPart) {
 				
-				MessageDialog.openConfirm((Shell)theWindow.getWidget(), "Close", "'"+"DOC"+"' "+"Has been modified. Save changes?");
-				return null;
+				return closeEditorDialog(dirtyPart);
 			}
 
 			@Override
@@ -83,7 +83,7 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 		
 		
 	      saveHandler  = (ISaveHandler)theWindow.getContext().get(ISaveHandler.class);
-	      */
+	      
 	      theWindow.getContext().set(IWindowCloseHandler.class, new IWindowCloseHandler() {
 
 			@Override
@@ -162,6 +162,33 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 		
 		
 
+	}
+	
+	private Save closeEditorDialog(MPart dirtyPart) {
+		
+		
+	    MessageDialog dialog = new MessageDialog( (Shell)theWindow.getWidget(), "Save file", null,
+			    "'"+dirtyPart.getLabel()+"' has been modified. Save changes?", MessageDialog.QUESTION, new String[] { "CANCEL",
+			    "YES", "NO" }, 0);
+			int result =dialog.open();
+			System.out.println("pulsado\t"+result);
+
+	    	switch (result){
+			case 0:
+				return Save.CANCEL;
+				
+			case 1:
+				return Save.YES;
+				
+			case 2:
+				return Save.NO;
+				
+				
+			default:
+				return Save.CANCEL;
+			}
+	 
+		
 	}
 
 }

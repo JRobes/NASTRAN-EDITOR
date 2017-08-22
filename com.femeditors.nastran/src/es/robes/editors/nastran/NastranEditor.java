@@ -32,6 +32,7 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.modeling.IWindowCloseHandler;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.FindReplaceDocumentAdapter;
 import org.eclipse.jface.text.IPainter;
@@ -107,6 +108,7 @@ public class NastranEditor extends TextEditorPart {
 	
 	@Inject
 	public NastranEditor(Composite parent) {
+
 	}
 		
 	@PostConstruct
@@ -135,6 +137,7 @@ public class NastranEditor extends TextEditorPart {
 	    OverviewRuler overviewRuler = new OverviewRuler(null, 20, null);
 	    sv = new SourceViewer(parent, verticalRuler, overviewRuler, true, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
 	    st = sv.getTextWidget();
+
 	    sv.configure(new NastranSourceViewerConf());
 		System.out.println("NUMERO DE PIXELS EN EL LADO IZDO:\t" + st.getLeftMargin());
 		st.setLeftMargin(0);
