@@ -1,11 +1,13 @@
 package es.robes.editors.nastran.lifecycle;
 
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.IWorkbench;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ElementMatcher;
 import org.eclipse.e4.ui.workbench.modeling.ISaveHandler;
+import org.eclipse.e4.ui.workbench.modeling.ISaveHandler.Save;
 import org.eclipse.e4.ui.workbench.modeling.IWindowCloseHandler;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -25,6 +27,7 @@ import org.eclipse.e4.ui.model.application.commands.MHandler;
 public class AppStartupCompleteEventHandler implements EventHandler {
     private MWindow theWindow;
 	private MApplication application2;
+	private static ISaveHandler saveHandler;
 	@Inject
 	IWorkbench wb;
 	//private IWorkbench myWorkBench;
@@ -42,10 +45,13 @@ public class AppStartupCompleteEventHandler implements EventHandler {
       application2 = application;
      wb = application2.getContext().get(IWorkbench.class);
      // myWorkBench = workbench;
+
     }
 
 	@Override
 	public void handleEvent(Event event) {
+	      saveHandler  = (ISaveHandler)theWindow.getContext().get(ISaveHandler.class);
+	      
 	      theWindow.getContext().set(IWindowCloseHandler.class, new IWindowCloseHandler() {
 
 			@Override
@@ -54,18 +60,19 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 				List<MHandler> listHandlers = window.getHandlers();
 				System.out.println(listHandlers.size());
 				EModelService modelService2 = application2.getContext().get(EModelService.class);
-				Collection<EPartService> allPartServices = getAllPartServices(application2);
-				if (containsDirtyParts(allPartServices)) {
-					System.out.println("TIENE DIRTY PARTS...");
+				Shell shell = (Shell) window.getWidget();
+				if (MessageDialog.openConfirm(shell, "Close Application", "Do you really want to close the entire application?")) {
+					Collection<EPartService> allPartServices = getAllPartServices(application2);
+					if (containsDirtyParts(allPartServices)) {
+						System.out.println("TIENE DIRTY PARTS...");
 					
-					return true;
-				}
-				else {
-					Shell shell = (Shell) window.getWidget();
-					if (MessageDialog.openConfirm(shell, "Close Application", "Do you really want to close the entire application?")) {
-						return wb.close();
-						//return true;
+						iterateOverDirtyParts( allPartServices);
+						return true;				
 					}
+					else {
+						System.out.println("NO TIENE DIRTY PARTS...");
+						return true;
+					}				
 				}
 				return false;
 			}});        
@@ -86,7 +93,7 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 				}
 			}
 		}
-
+		System.out.println("Numero de part services ...\t"+ partServices.size());
 		return partServices;
 	}
 	private static boolean containsDirtyParts(Collection<EPartService> partServices) {
@@ -96,6 +103,34 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 		}
 
 		return false;
+	}
+	private static void iterateOverDirtyParts(Collection<EPartService> allPartServices) {
+		for (EPartService partService : allPartServices) {
+			Collection<MPart> dirtyParts = partService.getDirtyParts();
+			
+			for(MPart dirtyPart : dirtyParts) {
+				
+				System.out.println("DIRTY PART...dirty part");
+				switch(saveHandler.promptToSave(dirtyPart)) {
+					case NO:
+						System.out.println("NO salvar dialogo");
+						break;
+					case YES:
+						saveHandler.save(dirtyPart, false);
+						
+						System.out.println("SI salvar dialogo");
+						break;
+					case CANCEL:
+						System.out.println("CANCEL salvar dialogo");
+						break;	
+				}
+				
+			}
+				
+		} 
+		
+		
+
 	}
 
 }
