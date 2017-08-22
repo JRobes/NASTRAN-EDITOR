@@ -11,6 +11,7 @@ import org.eclipse.e4.ui.workbench.modeling.ISaveHandler.Save;
 import org.eclipse.e4.ui.workbench.modeling.IWindowCloseHandler;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
@@ -45,13 +46,44 @@ public class AppStartupCompleteEventHandler implements EventHandler {
       application2 = application;
      wb = application2.getContext().get(IWorkbench.class);
      // myWorkBench = workbench;
-
+     Shell shell = (Shell) window.getWidget();
     }
 
 	@Override
 	public void handleEvent(Event event) {
+		/*
+		theWindow.getContext().set(ISaveHandler.class, new ISaveHandler() {
+
+			@Override
+			public boolean save(MPart dirtyPart, boolean confirm) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean saveParts(Collection<MPart> dirtyParts, boolean confirm) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public Save promptToSave(MPart dirtyPart) {
+				
+				MessageDialog.openConfirm((Shell)theWindow.getWidget(), "Close", "'"+"DOC"+"' "+"Has been modified. Save changes?");
+				return null;
+			}
+
+			@Override
+			public Save[] promptToSave(Collection<MPart> dirtyParts) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+		});
+		
+		
 	      saveHandler  = (ISaveHandler)theWindow.getContext().get(ISaveHandler.class);
-	      
+	      */
 	      theWindow.getContext().set(IWindowCloseHandler.class, new IWindowCloseHandler() {
 
 			@Override
@@ -59,9 +91,8 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 				System.out.println("SE CERRO CORRECTAMENTE...");
 				List<MHandler> listHandlers = window.getHandlers();
 				System.out.println(listHandlers.size());
-				EModelService modelService2 = application2.getContext().get(EModelService.class);
 				Shell shell = (Shell) window.getWidget();
-				if (MessageDialog.openConfirm(shell, "Close Application", "Do you really want to close the entire application?")) {
+				if (MessageDialog.openConfirm(shell, "Close Nastran Editor", "Do you really want to close the entire application?")) {
 					Collection<EPartService> allPartServices = getAllPartServices(application2);
 					if (containsDirtyParts(allPartServices)) {
 						System.out.println("TIENE DIRTY PARTS...");
