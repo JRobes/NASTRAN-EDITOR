@@ -29,7 +29,7 @@ public class AppStartupCompleteEventHandler implements EventHandler {
     private MWindow theWindow;
 	private MApplication application2;
 	private static ISaveHandler saveHandler;
-	private EPartService partService;
+	//private EPartService partService;
 	@Inject
 	IWorkbench wb;
 	//private IWorkbench myWorkBench;
@@ -58,6 +58,7 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 			@Override
 			public boolean save(MPart dirtyPart, boolean confirm) {
 				
+				EPartService partService = dirtyPart.getContext().get(EPartService.class);
 				return partService.savePart(dirtyPart, confirm);
 			}
 
@@ -70,7 +71,7 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 			@Override
 			public Save promptToSave(MPart dirtyPart) {
 				
-				return closeEditorDialog(dirtyPart);
+				return promptToSaveDialog(dirtyPart);
 			}
 
 			@Override
@@ -164,7 +165,7 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 
 	}
 	
-	private Save closeEditorDialog(MPart dirtyPart) {
+	private Save promptToSaveDialog(MPart dirtyPart) {
 		
 		
 	    MessageDialog dialog = new MessageDialog( (Shell)theWindow.getWidget(), "Save file", null,
