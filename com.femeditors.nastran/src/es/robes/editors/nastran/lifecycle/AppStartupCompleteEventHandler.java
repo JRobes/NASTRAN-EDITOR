@@ -59,7 +59,11 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 			public boolean save(MPart dirtyPart, boolean confirm) {
 				
 				EPartService partService = dirtyPart.getContext().get(EPartService.class);
+				System.out.println("PART-SERVICE...???????"+partService.toString());
+
 				return partService.savePart(dirtyPart, confirm);
+
+				//return true;
 			}
 
 			@Override
