@@ -47,6 +47,7 @@ public class AppStartupCompleteEventHandler implements EventHandler {
       application2 = application;
      wb = application2.getContext().get(IWorkbench.class);
      // myWorkBench = workbench;
+    
      Shell shell = (Shell) window.getWidget();
     }
 
@@ -57,9 +58,13 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 
 			@Override
 			public boolean save(MPart dirtyPart, boolean confirm) {
+				System.out.println("PARTE PARA SALVAR..." + dirtyPart.getLabel());
+
+					EPartService partService = dirtyPart.getContext().get(EPartService.class);
+					
+					return partService.savePart(dirtyPart, confirm);
 				
-				EPartService partService = dirtyPart.getContext().get(EPartService.class);
-				return partService.savePart(dirtyPart, confirm);
+
 			}
 
 			@Override
@@ -97,7 +102,6 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 					Collection<EPartService> allPartServices = getAllPartServices(application2);
 					if (containsDirtyParts(allPartServices)) {
 						System.out.println("TIENE DIRTY PARTS...");
-					
 						iterateOverDirtyParts( allPartServices);
 						return true;				
 					}
