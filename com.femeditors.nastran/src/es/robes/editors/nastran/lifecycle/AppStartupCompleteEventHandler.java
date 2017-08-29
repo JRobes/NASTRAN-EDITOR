@@ -61,8 +61,11 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 				System.out.println("PARTE PARA SALVAR..." + dirtyPart.getLabel());
 
 					EPartService partService = dirtyPart.getContext().get(EPartService.class);
+					//partService.hidePart(dirtyPart, true);
+					partService.hidePart(dirtyPart,true);
 					
-					return partService.savePart(dirtyPart, confirm);
+					//return partService.savePart(dirtyPart, confirm);
+				return true;
 				
 
 			}
@@ -102,8 +105,8 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 					Collection<EPartService> allPartServices = getAllPartServices(application2);
 					if (containsDirtyParts(allPartServices)) {
 						System.out.println("TIENE DIRTY PARTS...");
-						iterateOverDirtyParts( allPartServices);
-						return true;				
+						
+						return iterateOverDirtyParts( allPartServices);			
 					}
 					else {
 						System.out.println("NO TIENE DIRTY PARTS...");
@@ -140,7 +143,7 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 
 		return false;
 	}
-	private static void iterateOverDirtyParts(Collection<EPartService> allPartServices) {
+	private static boolean iterateOverDirtyParts(Collection<EPartService> allPartServices) {
 		for (EPartService partService : allPartServices) {
 			Collection<MPart> dirtyParts = partService.getDirtyParts();
 			
@@ -154,16 +157,19 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 					case YES:
 						saveHandler.save(dirtyPart, false);
 						
+						
 						System.out.println("SI salvar dialogo");
 						break;
 					case CANCEL:
 						System.out.println("CANCEL salvar dialogo");
-						break;	
+						return false;
+						//break;	
 				}
 				
 			}
 				
-		} 
+		}
+		return true;
 		
 		
 
@@ -173,20 +179,20 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 		
 		
 	    MessageDialog dialog = new MessageDialog( (Shell)theWindow.getWidget(), "Save file", null,
-			    "'"+dirtyPart.getLabel()+"' has been modified. Save changes?", MessageDialog.QUESTION, new String[] { "CANCEL",
-			    "YES", "NO" }, 0);
+			    "'"+dirtyPart.getLabel()+"' has been modified. Save changes?", MessageDialog.QUESTION, new String[] { "YES",
+			    "NO", "CANCEL" }, 0);
 			int result =dialog.open();
 			System.out.println("pulsado\t"+result);
 
 	    	switch (result){
 			case 0:
-				return Save.CANCEL;
-				
-			case 1:
 				return Save.YES;
 				
-			case 2:
+			case 1:
 				return Save.NO;
+				
+			case 2:
+				return Save.CANCEL;
 				
 				
 			default:
