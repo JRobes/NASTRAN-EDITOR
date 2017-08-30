@@ -65,18 +65,14 @@ public class AppStartupCompleteEventHandler implements EventHandler {
 					partService.hidePart(dirtyPart,true);
 					
 					//return partService.savePart(dirtyPart, confirm);
-				return true;
-				
-<<<<<<< HEAD
+				//return true;
 
-=======
-				EPartService partService = dirtyPart.getContext().get(EPartService.class);
-				System.out.println("PART-SERVICE...???????"+partService.toString());
+				//EPartService partService = dirtyPart.getContext().get(EPartService.class);
+				//System.out.println("PART-SERVICE...???????"+partService.toString());
 
 				return partService.savePart(dirtyPart, confirm);
 
 				//return true;
->>>>>>> branch 'master' of https://github.com/JRobes/NASTRAN-EDITOR.git
 			}
 
 			@Override
