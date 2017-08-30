@@ -13,7 +13,7 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 public class LifeCycleManager {
 	 @ProcessRemovals
      void postContextCreate(){
-		 System.out.println(">>>>>>>>>>>>>>>>>>>>><<<<T CONSTRUCT DENTRO DEL CHECKEADOR DE ACTIVE PARTS");
+		 System.out.println(">>>>>>>>>>>>>>T CONSTRUCT DENTRO DEL CHECKEADOR DE ACTIVE PARTS");
  
 	 }
 	 
