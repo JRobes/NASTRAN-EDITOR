@@ -36,18 +36,14 @@ public class LifeCycleManager {
 	}
 	public class AppStartupCompleteEventHandler implements EventHandler {
 		private MWindow theWindow;
-		private MApplication application2;
+		private MApplication app;
 		private ISaveHandler saveHandler;
 
 		AppStartupCompleteEventHandler(MWindow window, EModelService modelService, MApplication application){
     		theWindow = window;
-
-    		//closeHandler = new NastranEditorWindowCloseHandler(app, modelService);
+   		 	app = application;
     		System.out.println("MODEL SERVICE    :   "+ application.toString());
-   		 application2 = application;
-  		// myWorkBench = workbench;
-
-  	}
+		}
 
 		@Override
 		public void handleEvent(Event event) {
@@ -55,39 +51,34 @@ public class LifeCycleManager {
 				@Override
 				public boolean save(MPart dirtyPart, boolean confirm) {
 					System.out.println("PARTE PARA SALVAR..." + dirtyPart.getLabel());
-
 					EPartService partService = dirtyPart.getContext().get(EPartService.class);
-					//partService.hidePart(dirtyPart, true);
-					partService.hidePart(dirtyPart,true);
-
-					//return partService.savePart(dirtyPart, confirm);
-				return true;
+					//partService.hidePart(dirtyPart,true);
+					return partService.savePart(dirtyPart, confirm);
+					//return true;
 				}
-
+	
 				@Override
 				public boolean saveParts(Collection<MPart> dirtyParts, boolean confirm) {
 					return false;
 				}
 				@Override
 				public Save promptToSave(MPart dirtyPart) {
-						return promptToSaveDialog(dirtyPart);
+					return promptToSaveDialog(dirtyPart);
 				}
 				@Override
 				public Save[] promptToSave(Collection<MPart> dirtyParts) {
 					return null;
 				}
-
 			});
-
-	      saveHandler  = (ISaveHandler)theWindow.getContext().get(ISaveHandler.class);
-	      theWindow.getContext().set(IWindowCloseHandler.class, new IWindowCloseHandler() {
+			saveHandler  = (ISaveHandler)theWindow.getContext().get(ISaveHandler.class);
+			theWindow.getContext().set(IWindowCloseHandler.class, new IWindowCloseHandler() {
 				@Override
 				public boolean close(MWindow window) {
 					List<MHandler> listHandlers = window.getHandlers();
 					System.out.println(listHandlers.size());
 					Shell shell = (Shell) window.getWidget();
 					if (MessageDialog.openConfirm(shell, "Close Nastran Editor", "Do you really want to close the entire application?")) {
-						Collection<EPartService> allPartServices = getAllPartServices(application2);
+						Collection<EPartService> allPartServices = getAllPartServices(app);
 						if (containsDirtyParts(allPartServices)) {
 							return iterateOverDirtyParts( allPartServices);
 						}
