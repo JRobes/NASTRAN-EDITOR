@@ -14,8 +14,7 @@ public class LifeCycleManager {
 	 @ProcessRemovals
      void postContextCreate(){
 		 System.out.println(">>>>>>>>>>>>>>>>>>>>><<<<T CONSTRUCT DENTRO DEL CHECKEADOR DE ACTIVE PARTS");
-		 //CheckForActivePart CAP = new CheckForActivePart();
-		 
+ 
 	 }
 	 
 	  @ProcessAdditions
