@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MHandler;
@@ -24,22 +26,20 @@ import org.osgi.service.event.EventHandler;
 
 @SuppressWarnings("restriction")
 public class LifeCycleManager {
-
+	@Inject	IEventBroker eventBroker;
+	
 	@ProcessAdditions
-	  public void processAdditions(IEventBroker eventBroker, MApplication app, EModelService modelService)
-	  {
-	     MWindow window =(MWindow)modelService.find("test-base-plugin.trimmedwindow", app);
-
+	public void processAdditions(MApplication application, EModelService modelService){
+	     MWindow window =(MWindow)modelService.find("test-base-plugin.trimmedwindow", application);
 	     eventBroker.subscribe(UIEvents.UILifeCycle.APP_STARTUP_COMPLETE,
-	                          new AppStartupCompleteEventHandler(window, modelService, app));
-
-	  }
+	                          new AppStartupCompleteEventHandler(window, modelService, application));
+	}
 	public class AppStartupCompleteEventHandler implements EventHandler {
-  	private MWindow theWindow;
+		private MWindow theWindow;
 		private MApplication application2;
 		private ISaveHandler saveHandler;
 
-  	AppStartupCompleteEventHandler(MWindow window, EModelService modelService, MApplication application){
+		AppStartupCompleteEventHandler(MWindow window, EModelService modelService, MApplication application){
     		theWindow = window;
 
     		//closeHandler = new NastranEditorWindowCloseHandler(app, modelService);
