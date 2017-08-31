@@ -6,7 +6,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.di.InjectionException;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MHandler;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -50,11 +53,23 @@ public class LifeCycleManager {
 			theWindow.getContext().set(ISaveHandler.class, new ISaveHandler() {
 				@Override
 				public boolean save(MPart dirtyPart, boolean confirm) {
-					System.out.println("PARTE PARA SALVAR..." + dirtyPart.getLabel());
-					EPartService partService = dirtyPart.getContext().get(EPartService.class);
-					//partService.hidePart(dirtyPart,true);
-					return partService.savePart(dirtyPart, confirm);
-					//return true;
+					  if (confirm){
+					     switch (promptToSave(dirtyPart)) {
+					       default:
+					       case NO: return true;
+					       case CANCEL: return false;
+					       case YES: break;
+					     }
+					   }
+
+					  try {
+					     ContextInjectionFactory.invoke(dirtyPart.getObject(), Persist.class, dirtyPart.getContext());
+					   }
+					  catch (final InjectionException ex)
+					   {
+					     // TODO ignore or log error
+					   }
+					  return true;
 				}
 	
 				@Override
@@ -63,7 +78,14 @@ public class LifeCycleManager {
 				}
 				@Override
 				public Save promptToSave(MPart dirtyPart) {
-					return promptToSaveDialog(dirtyPart);
+				    MessageDialog dialog = new MessageDialog( (Shell)theWindow.getWidget(), "Save file", null,
+						    "'"+dirtyPart.getLabel()+"' has been modified. Save changes?", MessageDialog.QUESTION, new String[] { "YES", "NO", "CANCEL" }, 0);
+				    	switch (dialog.open()){
+							case 0:	return Save.YES;
+							case 1:	return Save.NO;
+							case 2:	return Save.CANCEL;
+							default:return Save.CANCEL;
+						}
 				}
 				@Override
 				public Save[] promptToSave(Collection<MPart> dirtyParts) {
@@ -121,7 +143,7 @@ public class LifeCycleManager {
 						System.out.println("NO salvar dialogo");
 						break;
 					case YES:
-						saveHandler.save(dirtyPart, false);
+						saveHandler.save(dirtyPart, true);
 						System.out.println("SI salvar dialogo");
 						break;
 					case CANCEL:
@@ -131,16 +153,6 @@ public class LifeCycleManager {
 			}
 		}
 		return true;
-	}
-	private Save promptToSaveDialog(MPart dirtyPart) {
-	    MessageDialog dialog = new MessageDialog( (Shell)theWindow.getWidget(), "Save file", null,
-			    "'"+dirtyPart.getLabel()+"' has been modified. Save changes?", MessageDialog.QUESTION, new String[] { "YES", "NO", "CANCEL" }, 0);
-	    	switch (dialog.open()){
-				case 0:	return Save.YES;
-				case 1:	return Save.NO;
-				case 2:	return Save.CANCEL;
-				default:return Save.CANCEL;
-			}
 	}
 }
 }///END of LifeCycleManager
