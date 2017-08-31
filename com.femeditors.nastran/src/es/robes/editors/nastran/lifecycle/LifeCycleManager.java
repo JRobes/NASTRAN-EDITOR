@@ -143,7 +143,7 @@ public class LifeCycleManager {
 						System.out.println("NO salvar dialogo");
 						break;
 					case YES:
-						saveHandler.save(dirtyPart, true);
+						saveHandler.save(dirtyPart, false);
 						System.out.println("SI salvar dialogo");
 						break;
 					case CANCEL:
