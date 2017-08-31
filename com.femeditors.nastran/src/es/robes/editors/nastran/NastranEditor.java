@@ -324,6 +324,7 @@ public class NastranEditor extends TextEditorPart {
 	@Persist
 	public void guardarDatos(IEclipseContext context, MWindow window ){
 		boolean saved = false;
+		
 		saved =	save();
 	}
 	
