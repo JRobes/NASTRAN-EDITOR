@@ -130,8 +130,10 @@ public class NastranEditor extends TextEditorPart {
 	    parte.setLabel(documentPath.getFileName().toString());
 	    
 	    IVerticalRuler  verticalRuler = new VerticalRuler(10);
-	    OverviewRuler overviewRuler = new OverviewRuler(null, 20, null);
-	    sv = new SourceViewer(parent, verticalRuler, overviewRuler, true, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
+	    //OverviewRuler overviewRuler = new OverviewRuler(null, 20, null);
+	    //sv = new SourceViewer(parent, verticalRuler, overviewRuler, true, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
+	    sv = new SourceViewer(parent, verticalRuler, null, true, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
+
 	    st = sv.getTextWidget();
 
 	    sv.configure(new NastranSourceViewerConf());
@@ -321,9 +323,8 @@ public class NastranEditor extends TextEditorPart {
     
 	@Persist
 	public void guardarDatos(IEclipseContext context, MWindow window ){
-	boolean saved = false;
-	saved =	save();
-	
+		boolean saved = false;
+		saved =	save();
 	}
 	
 	@Override
