@@ -1,6 +1,7 @@
  
 package es.robes.editors.nastran;
 
+import java.net.URI;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -330,56 +331,20 @@ public class NastranEditor extends TextEditorPart {
 	
 	@Override
 	public boolean save(){
-		String cadena = documentPath.getFileName().toString();
-		System.out.println("DOCUMENTO NOMBREEEEEEEE\t"+ cadena);
-		System.out.println("Entra en save()...");
-		if (isNewFile){
-			
-			FileDialog saveDialogv= new FileDialog(display.getActiveShell(), SWT.SAVE);
-			
-			
-			System.out.println("DOCUMENTO NOMBREEEEEEEE\t"+ cadena);
 
-			saveDialogv.setFileName(documentPath.getFileName().toString());
-			String temp = saveDialogv.open();
-			
-			if(temp!= null){
-				
-				System.out.println("Nuevo archivo, con nombre...\t" + temp);
-				documentPath= Paths.get(temp);
-		
-				System.out.println("El path para salvar\t"+ documentPath.toString());
-				savePart();
-				System.out.println("los datos deberian estar ya guardados...222222");
-				//
-				//parte.setLabel(documentPath.getFileName().toString());
-				//dirty.setDirty(false);
-				//
-				isNewFile = false;
-				System.out.println("ahora actualiza el pathBroker...333333");
-				pathBroker[1] = documentPath;
-			   
-				parte.getTransientData().put("File Name", documentPath.toString());
-			    broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
-			    broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
-			    dirty.setDirty(false);
-			    //
-			}
-	
-			else{
-				System.out.println("FileDialog cancelado ... No hay cambios");
-				return false;
-			}
+		System.out.println("NastranEditor.save()...\t"+pathBroker[0].toString());
+		if(parte.getTransientData().get("File Name")==null) {
+			System.out.println("NastranEditor.save()...\t"+"El Path NO ES RUTA CORRECTA");
+			return false;
 		}
-		else{
-			
-			savePart();
-			//
-			dirty.setDirty(false);
-			//
-		}
-		return true;
-		
+		documentPath= Paths.get((URI) parte.getTransientData().get("File Name"));
+		savePart();
+		isNewFile = false;
+	    broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
+	    broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
+	    dirty.setDirty(false);
+	    
+	    return true;
 		
 		
 		//return false;

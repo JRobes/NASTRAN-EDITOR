@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.InjectionException;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Persist;
@@ -23,6 +24,9 @@ import org.eclipse.e4.ui.workbench.modeling.ISaveHandler;
 import org.eclipse.e4.ui.workbench.modeling.ISaveHandler.Save;
 import org.eclipse.e4.ui.workbench.modeling.IWindowCloseHandler;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
@@ -53,12 +57,16 @@ public class LifeCycleManager {
 			theWindow.getContext().set(ISaveHandler.class, new ISaveHandler() {
 				@Override
 				public boolean save(MPart dirtyPart, boolean confirm) {
-					  if (confirm){
+					System.out.println("PRIMERO ENTRA EN SAVE");
+
+					if (confirm){
 					     switch (promptToSave(dirtyPart)) {
 					       default:
 					       case NO: return true;
 					       case CANCEL: return false;
-					       case YES: break;
+					       case YES:
+					    	   return promtToNewFile(dirtyPart); 
+					    	   
 					     }
 					   }
 
@@ -72,18 +80,40 @@ public class LifeCycleManager {
 					  return true;
 				}
 	
+				private boolean promtToNewFile(MPart dirtyPart) {
+					FileDialog saveDialogv= new FileDialog(Display.getDefault().getActiveShell(), SWT.SAVE);
+					String temp = saveDialogv.open();
+					if(temp != null){
+						 dirtyPart.getTransientData().put("File Name",temp);
+						return true;
+					}
+					return false;
+				}
+
 				@Override
 				public boolean saveParts(Collection<MPart> dirtyParts, boolean confirm) {
 					return false;
 				}
 				@Override
 				public Save promptToSave(MPart dirtyPart) {
-				    MessageDialog dialog = new MessageDialog( (Shell)theWindow.getWidget(), "Save file", null,
+					if(dirtyPart.getTransientData().get("File Name")==null) {
+						System.out.println("PART NAME NULLLLLLL");
+					}
+					MessageDialog dialog = new MessageDialog( (Shell)theWindow.getWidget(), "Save filellllll", null,
 						    "'"+dirtyPart.getLabel()+"' has been modified. Save changes?", MessageDialog.QUESTION, new String[] { "YES", "NO", "CANCEL" }, 0);
 				    	switch (dialog.open()){
-							case 0:	return Save.YES;
-							case 1:	return Save.NO;
-							case 2:	return Save.CANCEL;
+							case 0:	
+								System.out.println("sAve YES");
+								return Save.YES;
+							case 1:	
+								System.out.println("sAve NO");
+								return Save.NO;
+
+
+							case 2:	
+								System.out.println("sAve CANCEL");
+
+								return Save.CANCEL;
 							default:return Save.CANCEL;
 						}
 				}
@@ -138,6 +168,10 @@ public class LifeCycleManager {
 			Collection<MPart> dirtyParts = partService.getDirtyParts();
 			for(MPart dirtyPart : dirtyParts) {
 				System.out.println("DIRTY PART...dirty part");
+				if(!saveHandler.save(dirtyPart, false)) {
+					return false;
+				}
+				/*
 				switch(saveHandler.promptToSave(dirtyPart)) {
 					case NO:
 						System.out.println("NO salvar dialogo");
@@ -150,6 +184,7 @@ public class LifeCycleManager {
 						System.out.println("CANCEL salvar dialogo");
 						return false;
 				}
+				*/
 			}
 		}
 		return true;

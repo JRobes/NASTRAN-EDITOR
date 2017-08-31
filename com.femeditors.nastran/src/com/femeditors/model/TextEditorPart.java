@@ -91,7 +91,6 @@ public abstract class TextEditorPart implements IDocumentInput {
 	
 	protected IStatus savePart() {
 		System.err.println("Starting save");
-		System.out.println("Document path:\t"+ documentPath.toString());
 		
 		if (documentPath == null){
 			System.err.println("NUNCA DEBE ENTRAR AQUI....");
