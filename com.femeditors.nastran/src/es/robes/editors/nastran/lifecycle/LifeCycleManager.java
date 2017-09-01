@@ -7,7 +7,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.InjectionException;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Persist;
@@ -21,7 +20,6 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ElementMatcher;
 import org.eclipse.e4.ui.workbench.modeling.ISaveHandler;
-import org.eclipse.e4.ui.workbench.modeling.ISaveHandler.Save;
 import org.eclipse.e4.ui.workbench.modeling.IWindowCloseHandler;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -60,16 +58,20 @@ public class LifeCycleManager {
 					System.out.println("PRIMERO ENTRA EN SAVE");
 
 					if (confirm){
+						System.out.println("El workbench lanza save(...,true)");
+
 					     switch (promptToSave(dirtyPart)) {
 					       default:
 					       case NO: return true;
 					       case CANCEL: return false;
 					       case YES:
-					    	   return promtToNewFile(dirtyPart); 
-					    	   
+					    	   if(dirtyPart.getTransientData().get("File Name")==null) {
+					    		   if(!promtToNewFile(dirtyPart)) {
+					    			   return false;
+					    		   }
+					    	   }
 					     }
 					   }
-
 					  try {
 					     ContextInjectionFactory.invoke(dirtyPart.getObject(), Persist.class, dirtyPart.getContext());
 					   }

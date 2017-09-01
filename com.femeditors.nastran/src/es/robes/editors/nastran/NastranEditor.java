@@ -332,12 +332,21 @@ public class NastranEditor extends TextEditorPart {
 	@Override
 	public boolean save(){
 
-		System.out.println("NastranEditor.save()...\t"+pathBroker[0].toString());
+		System.out.println("NastranEditor.save()...???\t"+parte.getTransientData().get("File Name"));
+		System.out.println("NastranEditor.save()...???\t"+parte.getTransientData().get("File Name"));
+
+		//documentPath= Paths.get((URI) parte.getTransientData().get("File Name"));
+
+		System.out.println("NastranEditor.save()...???\t"+parte.getTransientData().get("File Name"));
+
+		/*
 		if(parte.getTransientData().get("File Name")==null) {
 			System.out.println("NastranEditor.save()...\t"+"El Path NO ES RUTA CORRECTA");
 			return false;
 		}
-		documentPath= Paths.get((URI) parte.getTransientData().get("File Name"));
+		*/
+		documentPath= Paths.get((String)parte.getTransientData().get("File Name"));
+		System.out.println("NastranEditor.save()...\tantes de llamar a savePart()");
 		savePart();
 		isNewFile = false;
 	    broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
