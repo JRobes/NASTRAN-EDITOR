@@ -332,9 +332,6 @@ public class NastranEditor extends TextEditorPart {
 	@Override
 	public boolean save(){
 
-		System.out.println("NastranEditor.save()...???\t"+parte.getTransientData().get("File Name"));
-		System.out.println("NastranEditor.save()...???\t"+parte.getTransientData().get("File Name"));
-
 		//documentPath= Paths.get((URI) parte.getTransientData().get("File Name"));
 
 		System.out.println("NastranEditor.save()...???\t"+parte.getTransientData().get("File Name"));
@@ -346,11 +343,17 @@ public class NastranEditor extends TextEditorPart {
 		}
 		*/
 		documentPath= Paths.get((String)parte.getTransientData().get("File Name"));
+		parte.setLabel(documentPath.getFileName().toString());
 		System.out.println("NastranEditor.save()...\tantes de llamar a savePart()");
 		savePart();
+		System.out.println("NastranEditor.save()...\tdespues del savePart()");
+		//System.out.println("pathBroker[0]:\t"+pathBroker[0].toString());
+		//System.out.println("pathBroker[1]:\t"+pathBroker[1].toString());
+		pathBroker[1] = documentPath;
 		isNewFile = false;
 	    broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
 	    broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
+	    pathBroker[0] = documentPath;
 	    dirty.setDirty(false);
 	    
 	    return true;
@@ -359,47 +362,7 @@ public class NastranEditor extends TextEditorPart {
 		//return false;
 	}
 	
-	public void Mysave(){
-		System.out.println("guardando los datos...");
-		//System.out.println("guardando los datos..."+ file.getAbsolutePath());
-		if (isNewFile){
-			
-			FileDialog saveDialogv= new FileDialog(display.getActiveShell(), SWT.SAVE);
-			String temp = saveDialogv.open();
-			if(temp!= null){
-				
-				System.out.println("guardando los datos...\t" + temp);
-				//Path pathToSave = Paths.get(temp);
-				documentPath= Paths.get(temp);
-				
-				System.out.println("guardando los datos...111111");
-				System.out.println("El path para salvar\t"+ documentPath.toString());
-				//fileIn.save();
-				savePart();
-				System.out.println("guardando los datos...222222");
-				parte.setLabel(documentPath.getFileName().toString());
-				dirty.setDirty(false);
-				isNewFile = false;
-				System.out.println("guardando los datos...333333");
-				pathBroker[1] = documentPath;
-			    parte.getTransientData().put("File Name", documentPath.toString());
-			    broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
-			    broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
 
-			}
-	
-			else{
-				System.out.println("FileDialog cancelado ... No hay cambios");
-			}
-		}
-		else{
-			//fileIn.save();
-			savePart();
-			dirty.setDirty(false);
-		}
-		
-		
-	}
 	
 	@Focus
 	public void onFocus(MToolItem item) {

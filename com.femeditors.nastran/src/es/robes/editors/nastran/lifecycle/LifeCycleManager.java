@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -55,7 +56,7 @@ public class LifeCycleManager {
 			theWindow.getContext().set(ISaveHandler.class, new ISaveHandler() {
 				@Override
 				public boolean save(MPart dirtyPart, boolean confirm) {
-					System.out.println("PRIMERO ENTRA EN SAVE");
+					System.out.println("ISaveHandler.save()...Entró en el save ");
 
 					if (confirm){
 						System.out.println("El workbench lanza save(...,true)");
@@ -110,11 +111,8 @@ public class LifeCycleManager {
 							case 1:	
 								System.out.println("sAve NO");
 								return Save.NO;
-
-
 							case 2:	
 								System.out.println("sAve CANCEL");
-
 								return Save.CANCEL;
 							default:return Save.CANCEL;
 						}
@@ -170,9 +168,11 @@ public class LifeCycleManager {
 			Collection<MPart> dirtyParts = partService.getDirtyParts();
 			for(MPart dirtyPart : dirtyParts) {
 				System.out.println("DIRTY PART...dirty part");
-				if(!saveHandler.save(dirtyPart, false)) {
+				if(!saveHandler.save(dirtyPart, true)) {
 					return false;
 				}
+			    //ContextInjectionFactory.invoke(dirtyPart.getObject(), PreDestroy.class, dirtyPart.getContext());
+
 				/*
 				switch(saveHandler.promptToSave(dirtyPart)) {
 					case NO:

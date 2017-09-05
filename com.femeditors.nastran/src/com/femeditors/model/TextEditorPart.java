@@ -90,7 +90,7 @@ public abstract class TextEditorPart implements IDocumentInput {
 
 	
 	protected IStatus savePart() {
-		System.err.println("Starting save");
+		System.out.println("...........................................Starting save...................................");
 		
 		if (documentPath == null){
 			System.err.println("NUNCA DEBE ENTRAR AQUI....");
@@ -143,7 +143,7 @@ public abstract class TextEditorPart implements IDocumentInput {
 
 		}
 
-		System.err.println("Saving done");
+		System.out.println("...........................................Saving done...................................");
 		
 
 		
