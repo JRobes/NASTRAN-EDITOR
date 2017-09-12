@@ -35,6 +35,7 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.FindReplaceDocumentAdapter;
 import org.eclipse.jface.text.IPainter;
 import org.eclipse.jface.text.IRegion;
+import org.eclipse.jface.text.TextViewer;
 import org.eclipse.jface.text.WhitespaceCharacterPainter;
 import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.OverviewRuler;
@@ -134,7 +135,7 @@ public class NastranEditor extends TextEditorPart {
 	    //OverviewRuler overviewRuler = new OverviewRuler(null, 20, null);
 	    //sv = new SourceViewer(parent, verticalRuler, overviewRuler, true, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
 	    sv = new SourceViewer(parent, verticalRuler, null, true, SWT.MULTI | SWT.V_SCROLL |SWT.H_SCROLL);
-
+	   
 	    st = sv.getTextWidget();
 
 	    sv.configure(new NastranSourceViewerConf());
@@ -148,7 +149,7 @@ public class NastranEditor extends TextEditorPart {
 	    sv.setDocument(this.getDocument());
       	pathBroker[0] = documentPath; 
 	    broker.post(NastranEditorEventConstants.FILE_NEW, pathBroker );
-	   
+	    
 	    sv.addPainter(whitespaceCharacterPainter);
 	    whitespaceCharacterPainter.deactivate(true);
 	    final ScrollBar hBar = st.getHorizontalBar();
