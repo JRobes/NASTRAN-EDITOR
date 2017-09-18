@@ -162,7 +162,11 @@ public class OpenDocumentsBrowser {
 
 		Object data = event.getProperty(IEventBroker.DATA);
 		Path[] fileUpdated = (Path[])data;
-		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		System.out.println("OpenDocumentBrowser -> updateListOfFiles -> fileUpdated[0]:\t"+fileUpdated[0].toString());
+		//System.out.println("fileUpdated[1]:\t"+fileUpdated[1].toString());
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	
 		switch(topic){
     		case NastranEditorEventConstants.FILE_NEW:
     			listOfFiles.add(fileUpdated[0]);

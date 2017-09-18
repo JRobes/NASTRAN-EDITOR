@@ -102,13 +102,7 @@ public class NastranEditor extends TextEditorPart {
 	@Inject MPart parte;
 	@Inject IEventBroker broker;
 	
-	
-	
-	@Inject
-	public NastranEditor(Composite parent) {
-
-	}
-		
+			
 	@PostConstruct
 	public void postConstruct(Composite parent) {
 		MPartStack partStack = (MPartStack)modelService.find("test-base-plugin.partstack", app);
@@ -343,6 +337,11 @@ public class NastranEditor extends TextEditorPart {
 			return false;
 		}
 		*/
+		if(Paths.get((String)parte.getTransientData().get("File Name")) == null){
+			System.out.println("AQUI HAY QUE IMPLEMENTAR EL IDALOGO DE SALVAR EL ARVHIVO");
+			
+		}
+		
 		documentPath= Paths.get((String)parte.getTransientData().get("File Name"));
 		parte.setLabel(documentPath.getFileName().toString());
 		System.out.println("NastranEditor.save()...\tantes de llamar a savePart()");
@@ -351,10 +350,14 @@ public class NastranEditor extends TextEditorPart {
 		//System.out.println("pathBroker[0]:\t"+pathBroker[0].toString());
 		//System.out.println("pathBroker[1]:\t"+pathBroker[1].toString());
 		pathBroker[1] = documentPath;
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		System.out.println("pathBroker[0]:\t"+pathBroker[0].toString());
+		System.out.println("pathBroker[1]:\t"+pathBroker[1].toString());
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		isNewFile = false;
 	    broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
 	    broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
-	    pathBroker[0] = documentPath;
+	    //pathBroker[0] = documentPath;
 	    dirty.setDirty(false);
 	    
 	    return true;
