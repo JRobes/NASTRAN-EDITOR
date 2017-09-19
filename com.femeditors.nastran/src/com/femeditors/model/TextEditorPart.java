@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Display;
 public abstract class TextEditorPart implements IDocumentInput {
 	public StyledText st = null;
 	//public File file;
-	protected static Path documentPath = null;
+	protected Path documentPath = null;
 	private IDocument document;
 	public boolean isNewFile = false;
 	protected Path[] pathBroker = {null,null};

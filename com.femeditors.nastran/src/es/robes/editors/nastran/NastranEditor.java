@@ -355,9 +355,10 @@ public class NastranEditor extends TextEditorPart {
 		System.out.println("pathBroker[1]:\t"+pathBroker[1].toString());
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		isNewFile = false;
-	    broker.post(NastranEditorEventConstants.FILE_RENAME, pathBroker);
-	    broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
-	    //pathBroker[0] = documentPath;
+	    broker.send(NastranEditorEventConstants.FILE_RENAME, pathBroker);
+	
+	    //broker.post(NastranEditorEventConstants.STATUSBAR, pathBroker[1].toString());
+	    pathBroker[0] = documentPath;
 	    dirty.setDirty(false);
 	    
 	    return true;
@@ -378,7 +379,7 @@ public class NastranEditor extends TextEditorPart {
 	@PreDestroy
 	public void dispose(){
 		System.out.println("DISPOSE PART");
-				
+		pathBroker[0] = documentPath;		
 		MPartStack editorStack = (MPartStack) modelService.find("test-base-plugin.partstack", app);
 		editorStack.getChildren().remove(parte);
 		
@@ -388,7 +389,7 @@ public class NastranEditor extends TextEditorPart {
 	    
 	    //if(file != null)
 	    System.out.println("NastranEditor.dispose()\t" +pathBroker[0].toString());
-	    broker.post(NastranEditorEventConstants.FILE_CLOSE, pathBroker );
+	    broker.send(NastranEditorEventConstants.FILE_CLOSE, pathBroker );
 
 	}
 
