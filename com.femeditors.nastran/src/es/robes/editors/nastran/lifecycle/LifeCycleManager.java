@@ -74,6 +74,7 @@ public class LifeCycleManager {
 					     }
 					   }
 					  try {
+						//ESTA LLAMADA ES LA QUE HACE LA LLAMADA AL METODO ANOTADO CON @Persist
 					     ContextInjectionFactory.invoke(dirtyPart.getObject(), Persist.class, dirtyPart.getContext());
 					   }
 					  catch (final InjectionException ex)

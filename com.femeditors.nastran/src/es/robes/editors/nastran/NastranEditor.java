@@ -337,6 +337,8 @@ public class NastranEditor extends TextEditorPart {
 			return false;
 		}
 		*/
+		
+		
 		if(Paths.get((String)parte.getTransientData().get("File Name")) == null){
 			System.out.println("AQUI HAY QUE IMPLEMENTAR EL IDALOGO DE SALVAR EL ARVHIVO");
 			
