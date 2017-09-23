@@ -107,7 +107,8 @@ public class NastranEditor extends TextEditorPart {
 	public void postConstruct(Composite parent) {
 		MPartStack partStack = (MPartStack)modelService.find("test-base-plugin.partstack", app);
 		super.display = parent.getDisplay();
-        paletteData = new PaletteData(new RGB[] {new RGB(255,255,255), new RGB(245,245,245)});
+     //   paletteData = new PaletteData(new RGB[] {new RGB(255,255,255), new RGB(245,245,245)});
+        paletteData = new PaletteData(new RGB[] {new RGB(255,255,255), new RGB(190,190,190)});
 		ImageData whiteBackgroundImageData = new ImageData(1,1,1,paletteData);
 		imageData = new ImageData(MAX_PIXELS_SIZE,1,1,paletteData);
 		List<MStackElement> stackElement = partStack.getChildren();
