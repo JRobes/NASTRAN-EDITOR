@@ -1,6 +1,6 @@
 # NASTRAN-EDITOR
 
-NASTRAN is primarily a solver for finite element analysis. All input and output to the program is in the form of text files.
+NASTRAN primarily functions as a solver for finite element analysis, utilizing text files for both input and output data interchange.
 
 The Nastran Editor is a Java-based text editing tool designed for Nastran files. It was developed using the Eclipse E4 RCP platform and offers features such as syntax highlighting and a dual-color background, making it easier to identify distinct text sections within each Nastran card.
 
